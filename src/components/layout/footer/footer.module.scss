@@ -1,0 +1,14 @@
+@use "@styles/_variables" as *;
+
+.footer{
+    background-color: $bg-secondary;
+    padding: $spacing-lg 0;
+    margin-top: auto;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    transition: background-color $transition-normal, color $transition-normal;
+
+    @media (max-width: $breakpoint-lmd) {
+        margin-bottom: 54px;
+    }
+}
