@@ -1,0 +1,13 @@
+@use "@styles/_variables" as *;
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: $z-header;
+    background-color: $bg-secondary;
+    padding: $spacing-md 0;
+    color: $text-primary;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    transition: background-color $transition-normal, color $transition-normal;
+}
