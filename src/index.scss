@@ -143,12 +143,8 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $primary-color;
+  background: $primary-light;
   border-radius: $border-radius-lg;
-
-  &:hover {
-    background: $primary-dark;
-  }
 }
 
 * {
