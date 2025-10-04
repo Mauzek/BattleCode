@@ -1,0 +1,24 @@
+@use "@styles/_variables" as *;
+
+.navBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: $bg-secondary;
+    z-index: $z-header;
+    display: none;
+    box-shadow: $shadow-sm;
+    height: 54px;
+
+    @media (max-width: $breakpoint-lmd) {
+        display: block;
+    }
+
+    &__nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 100%;
+    }
+}
