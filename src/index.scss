@@ -77,16 +77,11 @@ button {
   padding: $spacing-sm $spacing-md;
   cursor: pointer;
   transition: all $transition-fast;
-  background-color: $primary-color;
-  color: $text-primary;
+  background-color: $accent-green;
+  color: #000;
 
   &:hover:not(:disabled) {
-    background-color: $primary-dark;
-    transform: translateY(-1px);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
+    opacity: 0.9;
   }
 
   &:disabled {
