@@ -1,6 +1,7 @@
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { MobileNavBar } from "./mobileNavBar";
+import { AppToaster } from "@/components";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -9,6 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {children}
       <MobileNavBar />
       <Footer />
+      <AppToaster />
     </>
   );
 };
