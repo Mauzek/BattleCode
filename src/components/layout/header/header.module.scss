@@ -1,13 +1,152 @@
 @use "@styles/_variables" as *;
 
 .header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
     position: sticky;
     top: 0;
+    padding: 0 $spacing-xl;
     z-index: $z-header;
-    background-color: $bg-secondary;
-    padding: $spacing-md 0;
+    border-bottom: 2px solid $bg-secondary;
+    background-color: $bg-primary;
     color: $text-primary;
     font-size: $font-size-lg;
     font-weight: $font-weight-bold;
     transition: background-color $transition-normal, color $transition-normal;
+    height: 120px;
+
+    @media screen and (max-width: $breakpoint-lmd) {
+        grid-template-columns: auto;
+        height: auto;
+    }
+
+    &__logo {
+        justify-self: start;
+        display: flex;
+        align-items: center;
+
+        @media screen and (max-width: $breakpoint-lmd) {
+            justify-self: center;
+        }
+    }
+
+    &__navContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        align-items: center;
+        gap: 40px;
+        margin-top: $spacing-xl;
+
+        @media screen and (max-width: $breakpoint-lmd) {
+            display: none;
+        }
+    }
+
+    &__nav {
+        display: flex;
+        gap: $spacing-2xl;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        a {
+            position: relative;
+            color: $text-secondary;
+            font-weight: $font-weight-regular;
+            text-decoration: none;         
+            font-size: $font-size-sm;
+            padding: $spacing-xs $spacing-sm;
+            border-radius: $border-radius-sm;
+            outline: none;
+            padding: 0 $spacing-md;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background-color: $primary-light;
+                transform: scaleX(0);
+                transform-origin: right; 
+                transition: transform 0.3s ease;
+            }
+
+            &:hover,
+            &:focus {
+                color: $primary-light;
+
+                &::after {
+                    transform: scaleX(1);
+                    transform-origin: left; 
+                }
+            }
+
+            &.active {
+                color: $primary-light;
+                font-weight: $font-weight-bold;
+
+                &::after {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                }
+            }
+        }
+
+        &--second {
+            a{
+                font-size: $font-size-lg;
+                font-weight: $font-weight-semibold;
+
+                &::after {
+                bottom: -13px;
+            }
+            }
+        }
+    }
+
+    &__actions {
+        justify-self: end;
+        display: flex;
+        align-items: center;
+
+        @media screen and (max-width: $breakpoint-lmd) {
+            display: none;
+        }
+    }
+
+    &__logoImage {
+        height: 120px;
+        padding: $spacing-sm;
+
+        @media screen and (max-width: $breakpoint-lg) {
+            display: none;
+        }
+    }
+
+    &__title {
+        display: flex;
+        text-align: left;
+        flex-wrap: wrap;
+        color: $primary-light;
+        margin: 0;
+        padding-top: $spacing-md;
+        line-height: 1;
+
+        @media screen and (max-width: $breakpoint-lg) {
+            flex-direction: column;
+        }
+
+        @media screen and (max-width: $breakpoint-lmd) {
+            flex-direction: row;
+        }
+    }
+
+    &__titleAccent {
+        color: #861be3;
+    }
 }
