@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import styles from "./Header.module.scss";
+import styles from "./header.module.scss";
 import { infoToast, promiseToast } from "@/components/ui";
 import { FcCommandLine } from "react-icons/fc";
 import { Link } from "react-router-dom";
