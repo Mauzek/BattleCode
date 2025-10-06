@@ -2,17 +2,16 @@ import { Header } from "./header";
 import { Footer } from "./footer";
 import { MobileNavBar } from "./mobileNavBar";
 import { AppToaster } from "@/components";
+import { Outlet } from "react-router-dom";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = () => {
   return (
     <>
       <Header />
-      {children}
+      <Outlet/>
       <MobileNavBar />
       <Footer />
       <AppToaster />
     </>
   );
 };
-
-export default Layout;
