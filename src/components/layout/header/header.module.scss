@@ -8,13 +8,11 @@
     top: 0;
     padding: 0 $spacing-xl;
     z-index: $z-header;
-    border-bottom: 2px solid $bg-secondary;
-    background-color: $bg-primary;
     color: $text-primary;
     font-size: $font-size-lg;
     font-weight: $font-weight-bold;
     transition: background-color $transition-normal, color $transition-normal;
-    height: 120px;
+    height: 84px;
 
     @media screen and (max-width: $breakpoint-lmd) {
         grid-template-columns: auto;
@@ -22,6 +20,7 @@
     }
 
     &__logo {
+        position: relative;
         justify-self: start;
         display: flex;
         align-items: center;
@@ -35,9 +34,10 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        justify-content: center;
         align-items: center;
         gap: 40px;
-        margin-top: $spacing-xl;
+        padding: $spacing-md;
 
         @media screen and (max-width: $breakpoint-lmd) {
             display: none;
@@ -49,65 +49,45 @@
         gap: $spacing-2xl;
         align-items: center;
         list-style: none;
-        padding: 0;
         margin: 0;
+    }
 
-        a {
-            position: relative;
-            color: $text-secondary;
-            font-weight: $font-weight-regular;
-            text-decoration: none;         
-            font-size: $font-size-sm;
-            padding: $spacing-xs $spacing-sm;
-            border-radius: $border-radius-sm;
-            outline: none;
-            padding: 0 $spacing-md;
+    &__link {
+        position: relative;
+        color: $text-secondary;
+        font-weight: $font-weight-regular;
+        text-decoration: none;
+        font-size: $font-size-sm;
+        padding: 0 $spacing-md;
+        border-radius: $border-radius-sm;
+        outline: none;
+        transition: color 0.3s ease;
 
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: -4px;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background-color: $primary-light;
-                transform: scaleX(0);
-                transform-origin: right; 
-                transition: transform 0.3s ease;
-            }
-
-            &:hover,
-            &:focus {
-                color: $primary-light;
-
-                &::after {
-                    transform: scaleX(1);
-                    transform-origin: left; 
-                }
-            }
-
-            &.active {
-                color: $primary-light;
-                font-weight: $font-weight-bold;
-
-                &::after {
-                    transform: scaleX(1);
-                    transform-origin: left;
-                }
-            }
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: $primary-light;
+            transition: width 0.3s ease;
         }
 
-        &--second {
-            a{
-                font-size: $font-size-lg;
-                font-weight: $font-weight-semibold;
+        &:hover {
+            color: $primary-light;
+            text-decoration: none;
+        }
 
-                &::after {
-                bottom: -13px;
-            }
+        &--active {
+            color: $primary-light;
+
+            &::after {
+                width: 100%;
             }
         }
     }
+
 
     &__actions {
         justify-self: end;
@@ -120,8 +100,9 @@
     }
 
     &__logoImage {
-        height: 120px;
-        padding: $spacing-sm;
+        height: 84px;
+        top: 0;
+        padding: $spacing-xs;
 
         @media screen and (max-width: $breakpoint-lg) {
             display: none;

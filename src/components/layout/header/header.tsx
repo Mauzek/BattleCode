@@ -2,9 +2,10 @@ import toast from "react-hot-toast";
 import styles from "./header.module.scss";
 import { infoToast, promiseToast } from "@/components/ui";
 import { FcCommandLine } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
+  const { pathname } = useLocation();
   const sendData = async (): Promise<string> => {
     return new Promise((resolve) => setTimeout(() => resolve("ok"), 3000));
   };
@@ -41,16 +42,32 @@ export const Header = () => {
         aria-label="Основная навигация"
       >
         <nav className={styles.header__nav}>
-          <Link to="/">Main</Link>
-          <Link to="/courses">Courses</Link>
-          <Link to="/calendar">Calendar</Link>
-        </nav>
-        <nav
-          className={`${styles.header__nav} ${styles["header__nav--second"]}`}
-        >
-          <Link to="/profile">Profile</Link>
-          <Link to="/settings">Settings</Link>
-          <Link to="/help">Help</Link>
+          <Link
+            to="/"
+            className={`${styles.header__link} ${
+              pathname === "/" ? styles["header__link--active"] : ""
+            }`}
+          >
+            Main
+          </Link>
+
+          <Link
+            to="/courses"
+            className={`${styles.header__link} ${
+              pathname === "/courses" ? styles["header__link--active"] : ""
+            }`}
+          >
+            Courses
+          </Link>
+
+          <Link
+            to="/calendar"
+            className={`${styles.header__link} ${
+              pathname === "/calendar" ? styles["header__link--active"] : ""
+            }`}
+          >
+            Calendar
+          </Link>
         </nav>
       </div>
 
