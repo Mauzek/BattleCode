@@ -6,6 +6,7 @@
     align-items: center;
     position: sticky;
     top: 0;
+    background-color: $bg-primary;
     padding: 0 $spacing-xl;
     z-index: $z-header;
     color: $text-primary;
@@ -15,8 +16,9 @@
     height: 84px;
 
     @media screen and (max-width: $breakpoint-lmd) {
-        grid-template-columns: auto;
-        height: auto;
+        grid-template-columns: 1fr auto;
+        height: 70px;
+        padding-left: $spacing-lg;
     }
 
     &__logo {
@@ -24,10 +26,40 @@
         justify-self: start;
         display: flex;
         align-items: center;
+        text-decoration: none !important;
+    }
+
+    &__logoImage {
+        height: 84px;
+        padding: $spacing-xs;
 
         @media screen and (max-width: $breakpoint-lmd) {
-            justify-self: center;
+            height: 60px;
         }
+    }
+
+    &__title {
+        display: flex;
+        text-align: left;
+        flex-wrap: wrap;
+        color: $primary-light;
+        margin: 0;
+        padding-top: $spacing-md;
+        line-height: 1;
+
+        @media screen and (max-width: $breakpoint-lg) {
+            flex-direction: column;
+        }
+
+        @media screen and (max-width: $breakpoint-lmd) {
+            flex-direction: row;
+            font-size: $font-size-3xl;
+            padding-top: $spacing-sm;
+        }
+    }
+
+    &__titleAccent {
+        color: $accent-dark-purple;
     }
 
     &__navContainer {
@@ -66,7 +98,7 @@
         &::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: -2px;
             left: 0;
             width: 0;
             height: 2px;
@@ -88,46 +120,108 @@
         }
     }
 
-
     &__actions {
         justify-self: end;
         display: flex;
         align-items: center;
+        gap: $spacing-md;
 
-        @media screen and (max-width: $breakpoint-lmd) {
-            display: none;
-        }
     }
 
-    &__logoImage {
-        height: 84px;
-        top: 0;
-        padding: $spacing-xs;
-
-        @media screen and (max-width: $breakpoint-lg) {
-            display: none;
-        }
-    }
-
-    &__title {
+    &__sideActions {
+        justify-self: end;
         display: flex;
-        text-align: left;
-        flex-wrap: wrap;
-        color: $primary-light;
-        margin: 0;
-        padding-top: $spacing-md;
-        line-height: 1;
-
-        @media screen and (max-width: $breakpoint-lg) {
-            flex-direction: column;
-        }
-
-        @media screen and (max-width: $breakpoint-lmd) {
-            flex-direction: row;
-        }
+        align-items: center;
+        gap: $spacing-sm;
     }
 
-    &__titleAccent {
-        color: #861be3;
+    &__avatar {
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+    }
+
+    &__action {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: $spacing-sm;
+        padding-left: 12px;
+        height: 56px;
+        border-radius: $border-radius-xl;
+        background-color: rgb(50, 56, 66);
+        cursor: pointer;
+        transition: background-color $transition-fast;
+
+        @media screen and (max-width: $breakpoint-lmd) {
+            display: none;
+        }
+
+        &--profile {
+            width: 96px;
+        }
+
+        &--notification {
+            @media screen and (max-width: $breakpoint-lmd) {
+                display: block;
+            }
+        }
+
+        &--mycourses,
+        &--notification {
+            background-color: transparent;
+            padding: $spacing-xs;
+            height: fit-content;
+            border-radius: $border-radius-md;
+
+            span {
+                position: absolute;
+                font-size: $font-size-xs;
+                top: -10px;
+                right: -10px;
+                background-color: $primary-light;
+                border-radius: 10px;
+                height: $spacing-md;
+                width: 23px;
+                padding: 0 $spacing-xs;
+                font-weight: $font-weight-semibold;
+                line-height: 1.6;
+            }
+
+            &:hover {
+                background-color: rgb(50, 56, 66) !important;
+                opacity: 1 !important;
+            }
+        }
+
+        &::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -30px;
+            z-index: $z-dropdown;
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            opacity: 0;
+            pointer-events: none;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: $font-size-xs;
+            white-space: nowrap;
+            padding: $spacing-xs;
+            padding-top: $spacing-sm;
+            border-radius: 6px;
+            line-height: 0.8;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        &:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        &:hover {
+            background-color: $accent-dark-purple;
+        }
     }
 }
