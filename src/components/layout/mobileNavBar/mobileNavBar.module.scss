@@ -37,4 +37,11 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
     }
+
+    &__avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 }
