@@ -1,8 +1,8 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import styles from "./header.module.scss";
-import { ModalWrapper } from "@/components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { ModalWrapper } from "@/components/modalWrapper";
 
 export const NotifButton = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
