@@ -1,13 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import styles from "./modalWrapper.module.scss";
+import { IoClose } from "react-icons/io5";
 
 interface ModalWrapperProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
   title?: string;
+  variant?: "center" | "side";
 }
 
 export const ModalWrapper = ({
@@ -15,17 +17,31 @@ export const ModalWrapper = ({
   onClose,
   children,
   title,
+  variant = "center",
 }: ModalWrapperProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
-
   const portalContainer = useRef(document.createElement("div"));
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 850);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const currentVariant = isMobile ? "bottom" : variant;
   const THRESHOLD = 80;
 
   const animateOpen = () => {
     if (!modalRef.current || !backdropRef.current) return;
-    gsap.set(modalRef.current, { y: "100%" });
+
+    if (currentVariant === "bottom") gsap.set(modalRef.current, { y: "100%" });
+    if (currentVariant === "center")
+      gsap.set(modalRef.current, { scale: 0.9, opacity: 0 });
+    if (currentVariant === "side") gsap.set(modalRef.current, { x: "100%" });
+
     gsap.set(backdropRef.current, { opacity: 0, pointerEvents: "auto" });
 
     gsap.to(backdropRef.current, {
@@ -34,21 +50,37 @@ export const ModalWrapper = ({
       ease: "power2.out",
     });
 
-    gsap.to(modalRef.current, {
-      y: 0,
-      duration: 0.45,
-      ease: "power3.out",
-    });
+    if (currentVariant === "bottom") {
+      gsap.to(modalRef.current, { y: 0, duration: 0.45, ease: "power3.out" });
+    } else if (currentVariant === "center") {
+      gsap.to(modalRef.current, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.35,
+        ease: "power3.out",
+      });
+    } else if (currentVariant === "side") {
+      gsap.to(modalRef.current, { x: 0, duration: 0.45, ease: "power3.out" });
+    }
   };
 
   const animateClose = (callback?: () => void) => {
     if (!modalRef.current || !backdropRef.current) return;
+
+    const closeAnim =
+      currentVariant === "bottom"
+        ? { y: "115%" }
+        : currentVariant === "center"
+        ? { scale: 0.9, opacity: 0 }
+        : { x: "115%" };
+
     gsap.to(modalRef.current, {
-      y: "100%",
+      ...closeAnim,
       duration: 0.35,
       ease: "power3.inOut",
       onComplete: callback,
     });
+
     gsap.to(backdropRef.current, {
       opacity: 0,
       duration: 0.35,
@@ -67,11 +99,15 @@ export const ModalWrapper = ({
   useEffect(() => {
     if (isOpen) animateOpen();
     else animateClose();
-  }, [isOpen]);
+  }, [isOpen, currentVariant]);
 
   useEffect(() => {
+    if (currentVariant !== "bottom") return;
+
     const modal = modalRef.current;
-    const content = modal?.querySelector(`.${styles.modal__content}`) as HTMLElement | null;
+    const content = modal?.querySelector(
+      `.${styles.modal__content}`
+    ) as HTMLElement | null;
     if (!modal || !content) return;
 
     let startY = 0;
@@ -105,15 +141,8 @@ export const ModalWrapper = ({
       if (deltaY > THRESHOLD) {
         animateClose(onClose);
       } else {
-        gsap.to(modal, {
-          y: 0,
-          duration: 0.4,
-          ease: "power3.out",
-        });
-        gsap.to(backdropRef.current, {
-          opacity: 1,
-          duration: 0.3,
-        });
+        gsap.to(modal, { y: 0, duration: 0.4, ease: "power3.out" });
+        gsap.to(backdropRef.current, { opacity: 1, duration: 0.3 });
       }
       isDraggingNow = false;
     };
@@ -127,10 +156,14 @@ export const ModalWrapper = ({
       modal.removeEventListener("touchmove", onTouchMove);
       modal.removeEventListener("touchend", onTouchEnd);
     };
-  }, [isOpen]);
+  }, [isOpen, currentVariant]);
 
   const handleClickOutside = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) animateClose(onClose);
+  };
+
+  const handleCloseModal = () => {
+    animateClose(onClose);
   };
 
   useEffect(() => {
@@ -142,14 +175,24 @@ export const ModalWrapper = ({
 
   if (!isOpen) return null;
 
+  const modalClass =
+    currentVariant === "center"
+      ? `${styles.modal} ${styles.center}`
+      : currentVariant === "side"
+      ? `${styles.modal} ${styles.side}`
+      : styles.modal;
+
   const modalContent = (
     <div
       ref={backdropRef}
       className={styles.backdrop}
       onClick={handleClickOutside}
     >
-      <div ref={modalRef} className={styles.modal}>
-        <div className={styles.modal__dragHandle} />
+      <div ref={modalRef} className={modalClass}>
+        <button className={styles.modal__close} onClick={handleCloseModal}>
+          <IoClose size={24} color="#fff" />
+        </button>
+        {isMobile && <div className={styles.modal__dragHandle} />}
         {title && <h2 className={styles.modal__title}>{title}</h2>}
         <div className={styles.modal__content}>{children}</div>
       </div>
