@@ -1,4 +1,5 @@
 @use "@styles/_variables" as *;
+@use "@styles/_mixins" as *;
 
 .backdrop {
     position: fixed;
@@ -12,15 +13,14 @@
     touch-action: none;
 }
 
-/* Базовая модалка (мобильная снизу) */
 .modal {
     position: relative;
     width: 100%;
     max-height: 100vh;
-    height: 50vh;
+    min-height: 30vh;
     background: $bg-primary;
-    border-radius: $border-radius-md $border-radius-md 0 0;
-    padding: 16px;
+    border-radius: $border-radius-xl $border-radius-xl 0 0;
+    padding: $spacing-lg $spacing-md;
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -38,7 +38,9 @@
     &__title {
         text-align: left;
         font-weight: 600;
-        margin-bottom: 12px;
+        font-size: 22px;
+        line-height: 30px;
+        margin-bottom: $spacing-md;
         color: #fff;
     }
 
@@ -59,8 +61,8 @@
         background: $bg-primary;
         transition: background-color $transition-fast;
 
-        &:hover {
-            background-color: $accent-dark-purple;
+        @include hover-only {
+            background-color: $accent-purple;
         }
     }
 }
@@ -76,14 +78,15 @@
     background-color: $bg-light;
 
     .modal__close {
-        background: $bg-light;
+        top: 16px;
+        right: 10px;
+        background: $bg-secondary;
         transition: background-color $transition-fast;
 
-        &:hover {
+        @include hover-only {
             background-color: $accent-purple;
         }
     }
-
 }
 
 .side {
@@ -91,22 +94,22 @@
     right: 0;
     top: 0;
     height: 100%;
-    width: 590px;
+    width: 592px;
     background-color: $bg-light;
     border-radius: 16px 0 0 16px;
-    padding: 16px;
+    padding: $spacing-xl;
     display: flex;
     flex-direction: column;
     box-shadow: -4px 0 10px rgba(0, 0, 0, 0.15);
 
     .modal__close {
         top: $spacing-md;
-        left: -55px;
+        left: -56px;
         padding: $spacing-sm;
         background: $bg-light;
         transition: background-color $transition-fast;
 
-        &:hover {
+        @include hover-only {
             background-color: $accent-purple;
         }
     }

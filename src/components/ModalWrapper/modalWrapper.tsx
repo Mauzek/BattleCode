@@ -21,7 +21,9 @@ export const ModalWrapper = ({
 }: ModalWrapperProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
-  const portalContainer = useRef(document.createElement("div"));
+  const modalRoot = document.getElementById("modal-root");
+  if (!modalRoot) throw new Error("Не найден элемент #modal-root в index.html");
+
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -44,11 +46,7 @@ export const ModalWrapper = ({
 
     gsap.set(backdropRef.current, { opacity: 0, pointerEvents: "auto" });
 
-    gsap.to(backdropRef.current, {
-      opacity: 1,
-      duration: 0.3,
-      ease: "power2.out",
-    });
+    gsap.to(backdropRef.current, { opacity: 1, duration: 0.3, ease: "power2.out" });
 
     if (currentVariant === "bottom") {
       gsap.to(modalRef.current, { y: 0, duration: 0.45, ease: "power3.out" });
@@ -90,24 +88,35 @@ export const ModalWrapper = ({
   };
 
   useEffect(() => {
-    document.body.appendChild(portalContainer.current);
-    return () => {
-      document.body.removeChild(portalContainer.current);
-    };
-  }, []);
-
-  useEffect(() => {
     if (isOpen) animateOpen();
     else animateClose();
   }, [isOpen, currentVariant]);
 
   useEffect(() => {
+    const body = document.body;
+    const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
+
+    if (isOpen) {
+      body.style.overflow = "hidden";
+      body.style.paddingRight = `${scrollbarW}px`;
+    } else {
+      gsap.delayedCall(0.35, () => {
+        body.style.overflow = "";
+        body.style.paddingRight = "";
+      });
+    }
+
+    return () => {
+      body.style.overflow = "";
+      body.style.paddingRight = "";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
     if (currentVariant !== "bottom") return;
 
     const modal = modalRef.current;
-    const content = modal?.querySelector(
-      `.${styles.modal__content}`
-    ) as HTMLElement | null;
+    const content = modal?.querySelector(`.${styles.modal__content}`) as HTMLElement | null;
     if (!modal || !content) return;
 
     let startY = 0;
@@ -138,9 +147,8 @@ export const ModalWrapper = ({
 
     const onTouchEnd = () => {
       if (!isDraggingNow) return;
-      if (deltaY > THRESHOLD) {
-        animateClose(onClose);
-      } else {
+      if (deltaY > THRESHOLD) animateClose(onClose);
+      else {
         gsap.to(modal, { y: 0, duration: 0.4, ease: "power3.out" });
         gsap.to(backdropRef.current, { opacity: 1, duration: 0.3 });
       }
@@ -162,16 +170,7 @@ export const ModalWrapper = ({
     if (e.target === e.currentTarget) animateClose(onClose);
   };
 
-  const handleCloseModal = () => {
-    animateClose(onClose);
-  };
-
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+  const handleCloseModal = () => animateClose(onClose);
 
   if (!isOpen) return null;
 
@@ -183,11 +182,7 @@ export const ModalWrapper = ({
       : styles.modal;
 
   const modalContent = (
-    <div
-      ref={backdropRef}
-      className={styles.backdrop}
-      onClick={handleClickOutside}
-    >
+    <div ref={backdropRef} className={styles.backdrop} onClick={handleClickOutside}>
       <div ref={modalRef} className={modalClass}>
         <button className={styles.modal__close} onClick={handleCloseModal}>
           <IoClose size={24} color="#fff" />
@@ -199,5 +194,5 @@ export const ModalWrapper = ({
     </div>
   );
 
-  return createPortal(modalContent, portalContainer.current);
+  return createPortal(modalContent, modalRoot);
 };

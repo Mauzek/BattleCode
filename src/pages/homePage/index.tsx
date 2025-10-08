@@ -13,7 +13,7 @@ export const HomePage = () => {
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         title="Test"
-        variant="side"
+        variant="center"
       >
         <nav>
           <Link to="/">Главная</Link>
