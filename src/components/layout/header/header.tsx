@@ -105,7 +105,7 @@ export const Header = () => {
               pathname === "/" ? styles["header__link--active"] : ""
             }`}
           >
-            Главная
+            Dashboard
           </Link>
           <Link
             to="/courses"

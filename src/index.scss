@@ -37,19 +37,41 @@ body {
 }
 
 // Заголовки
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-heading;
   font-weight: $font-weight-bold;
   color: $text-primary;
   margin-bottom: $spacing-md;
 }
 
-h1 { font-size: $font-size-4xl; }
-h2 { font-size: $font-size-3xl; }
-h3 { font-size: $font-size-2xl; }
-h4 { font-size: $font-size-xl; }
-h5 { font-size: $font-size-lg; }
-h6 { font-size: $font-size-base; }
+h1 {
+  font-size: $font-size-4xl;
+}
+
+h2 {
+  font-size: $font-size-3xl;
+}
+
+h3 {
+  font-size: $font-size-2xl;
+}
+
+h4 {
+  font-size: $font-size-xl;
+}
+
+h5 {
+  font-size: $font-size-lg;
+}
+
+h6 {
+  font-size: $font-size-base;
+}
 
 
 p {
@@ -64,7 +86,6 @@ a {
 
   &:hover {
     color: $primary-light;
-    text-decoration: underline;
   }
 }
 
@@ -145,5 +166,3 @@ img {
 * {
   -webkit-tap-highlight-color: transparent;
 }
-
-
