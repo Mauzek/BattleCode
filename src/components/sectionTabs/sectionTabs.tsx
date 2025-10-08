@@ -6,7 +6,7 @@ import {
   HiOutlineChevronRight,
 } from "react-icons/hi2";
 import type { SectionTabsProps } from "./types";
-import styles from "./SectionTabs.module.scss";
+import styles from "./sectionTabs.module.scss";
 
 export const SectionTabs = ({
   tabs,
