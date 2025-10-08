@@ -1,6 +1,6 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import styles from "./header.module.scss";
-import { ModalWrapper } from "@/components/modalWrapper";
+import { ModalWrapper } from "@/components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
