@@ -9,6 +9,7 @@ import {
   ProfilePage,
   AssignmentPage,
   NotFound,
+  CalendarPage,
 } from "@/pages";
 
 function App() {
@@ -19,11 +20,13 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/user/:username" element={<ProfilePage />} />
           <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/courses/my" element={<CoursesPage />} />
           <Route path="/courses/:courseId" element={<CoursePage />} />
           <Route
             path="/courses/:courseId/assignments/:assignmentId"
             element={<AssignmentPage />}
           />
+          <Route path="/calendar" element={<CalendarPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Route>

@@ -5,3 +5,4 @@ export * from './homePage';
 export * from './profilePage';
 export * from './assignmentPage';
 export * from './notFound';
+export * from './calendarPage';
