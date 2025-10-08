@@ -2,12 +2,12 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import styles from "./header.module.scss";
 import { Link, useLocation } from "react-router-dom";
-import { MdMoreVert } from "react-icons/md";
-import { IoNotificationsOutline } from "react-icons/io5";
 import { LuNotebookPen } from "react-icons/lu";
+import { NotifButton } from "./notifButton";
+import { ProfileButton } from "./profileButton";
 
 const MOBILE_BREAKPOINT = 850;
-const HEADER_HEIGHT = 70;
+const HEADER_HEIGHT = 50;
 
 export const Header = () => {
   const { pathname } = useLocation();
@@ -135,26 +135,9 @@ export const Header = () => {
           >
             <LuNotebookPen color="#fff" size={24} />
           </Link>
-          <button
-            className={`${styles.header__action} ${styles["header__action--notification"]}`}
-            data-label="Уведомления"
-          >
-            <IoNotificationsOutline color="#fff" size={24} />
-            <span>81</span>
-          </button>
+          <NotifButton />
         </div>
-
-        <div
-          className={`${styles.header__action} ${styles["header__action--profile"]}`}
-          data-label="Профиль"
-        >
-          <MdMoreVert color="#fff" size={24} />
-          <img
-            className={styles.header__avatar}
-            src="/noavatar.png"
-            alt="Профиль"
-          />
-        </div>
+        <ProfileButton />
       </div>
     </header>
   );
