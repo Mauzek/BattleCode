@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./mobileNavBar.module.scss";
-import { LuHouse, LuBook, LuCalendar, LuLayers } from "react-icons/lu";
+import { LuHouse, LuBook, LuCalendar } from "react-icons/lu";
+import { LuNotebookPen } from "react-icons/lu";
 
 interface Tab {
   icon?: React.ReactNode;
@@ -18,7 +19,7 @@ export const MobileNavBar: React.FC = () => {
     { icon: <LuBook />, path: "/courses", end: true },
     { path: "/user/boby", end: true, avatar },
     { icon: <LuCalendar />, path: "/calendar", end: true },
-    { icon: <LuLayers />, path: "/courses/my" },
+    { icon: <LuNotebookPen />, path: "/courses/my" },
   ];
 
   return (

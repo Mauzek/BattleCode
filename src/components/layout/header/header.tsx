@@ -110,7 +110,7 @@ export const Header = () => {
           <Link
             to="/courses"
             className={`${styles.header__link} ${
-              pathname === "/courses" ? styles["header__link--active"] : ""
+              pathname.startsWith("/courses") ? styles["header__link--active"] : ""
             }`}
           >
             Courses
@@ -118,7 +118,7 @@ export const Header = () => {
           <Link
             to="/calendar"
             className={`${styles.header__link} ${
-              pathname === "/calendar" ? styles["header__link--active"] : ""
+              pathname.startsWith("/calendar") ? styles["header__link--active"] : ""
             }`}
           >
             Calendar
@@ -129,7 +129,7 @@ export const Header = () => {
       <div className={styles.header__actions}>
         <div className={styles.header__sideActions}>
           <Link
-            to="/my-courses"
+            to="/courses/my"
             className={`${styles.header__action} ${styles["header__action--mycourses"]}`}
             data-label="Мои курсы"
           >
