@@ -100,7 +100,7 @@ export const ProfileButton = () => {
         </Link>
 
         <Link
-          to="/user/boby/password"
+          to="/user/edit"
           className={styles.profileDropdown__link}
           onClick={() => setOpen(false)}
         >

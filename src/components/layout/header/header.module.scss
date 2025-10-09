@@ -22,22 +22,29 @@
         padding: 0 $spacing-md;
     }
 
-    &__logo {
-        position: relative;
-        justify-self: start;
-        display: flex;
-        align-items: center;
-        text-decoration: none !important;
-    }
+&__logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 84px; 
+  overflow: visible; 
+}
 
-    &__logoImage {
-        height: 84px;
-        padding: $spacing-xs;
+&__logoImage {
+  position: absolute;
+  left: 0;
+  top: 35%;
+  transform-origin: left center;
+  height: 104px;
+  will-change: transform;
 
-        @media screen and (max-width: $breakpoint-lmd) {
-            height: 60px;
-        }
-    }
+  @media screen and (max-width: $breakpoint-lmd) {
+    position: static;
+    transform: none;
+    height: 60px;
+  }
+}
 
     &__title {
         display: flex;
