@@ -30,7 +30,7 @@
             bottom: -630px;
             display: block;
             position: absolute;
-            content: url("purpleLine.svg");
+            content: url("/purpleLine.svg");
         }
 
         &::before {
@@ -38,7 +38,7 @@
             right: -615px;
             display: block;
             position: absolute;
-            content: url("greenLine.svg");
+            content: url("/greenLine.svg");
         }
     }
 
