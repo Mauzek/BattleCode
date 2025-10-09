@@ -1,8 +1,9 @@
+import { AuthForm } from "@/components"
 
 export const AuthPage = () => {
   return (
     <main>
-        <h1>Вход</h1>
+        <AuthForm/>
     </main>
   )
 }

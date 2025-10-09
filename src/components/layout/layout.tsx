@@ -1,7 +1,6 @@
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { MobileNavBar } from "./mobileNavBar";
-import { AppToaster } from "@/components";
 import { Outlet } from "react-router-dom";
 
 export const Layout = () => {
@@ -11,7 +10,6 @@ export const Layout = () => {
       <Outlet/>
       <MobileNavBar />
       <Footer />
-      <AppToaster />
     </>
   );
 };

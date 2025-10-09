@@ -128,12 +128,6 @@ select {
   &::placeholder {
     color: $input-text-secondary;
   }
-
-  &:focus {
-    outline: none;
-    border-color: $primary-color;
-    box-shadow: 0 0 0 2px rgba($primary-color, 0.3);
-  }
 }
 
 img {

@@ -1,0 +1,169 @@
+@use '@styles/_variables' as *;
+
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-lg;
+        background: linear-gradient(47.28deg, rgb(134, 27, 227) -13.58%, rgb(68, 235, 153) 150.46%);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+
+        @media screen and (max-width: $breakpoint-sm) {
+            padding: $spacing-lg;
+            width: 340px;
+        }
+
+        &::after {
+            left: -615px;
+            z-index: 0;
+            bottom: -630px;
+            display: block;
+            position: absolute;
+            content: url("purpleLine.svg");
+        }
+
+        &::before {
+            top: -624px;
+            right: -615px;
+            display: block;
+            position: absolute;
+            content: url("greenLine.svg");
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+        text-align: left;
+    }
+
+    &__title {
+        color: #fff;
+        font-size: $font-size-base;
+        margin-bottom: 0
+    }
+
+    &__text {
+        font-size: $font-size-sm;
+        margin: 0;
+
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-lg;
+    }
+
+    &__field {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+    }
+
+    &__input {
+        width: 100%;
+        height: 52px;
+        padding: 16px 12px 0;
+        border-radius: 8px;
+        border: 2px solid #fff;
+        background-color: #fff;
+        color: #000;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+            border-color: $accent-purple;
+        }
+
+        &--error {
+            border-color: #ff6b6b;
+        }
+
+        &:focus+.auth__floatingLabel,
+        &:not(:placeholder-shown)+.auth__floatingLabel {
+            top: 6px;
+            font-size: 12px;
+            color: $accent-dark-purple;
+        }
+    }
+
+    &__floatingLabel {
+        position: absolute;
+        left: 12px;
+        top: 16px;
+        color: #777;
+        pointer-events: none;
+        transition: all 0.2s ease;
+    }
+
+    &__error {
+        position: absolute;
+        top: -22px;
+        margin-top: 4px;
+        color: #ff6b6b;
+        font-size: $font-size-xs;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &--bottom {
+            justify-content: center;
+        }
+    }
+
+    &__button {
+        width: fit-content;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        font-size: $font-size-sm;
+        cursor: pointer;
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        &--trasperent {
+            background-color: transparent;
+            color: $primary-light
+        }
+    }
+
+    &__division {
+        width: 100%;
+        height: 1px;
+        background-color: #aaa;
+    }
+
+    &__qr{
+        display: flex;
+        align-self: center;
+        border-radius: $border-radius-lg;
+        border: 3px solid #000;
+        background-color: #fff;
+        padding: $spacing-xs;
+
+        svg{
+            border-radius: $border-radius-md;
+        }
+    }
+}
