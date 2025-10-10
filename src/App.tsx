@@ -7,9 +7,21 @@ import {
   CoursesPage,
   CoursePage,
   ProfilePage,
-  AssignmentPage,
+  TaskPage,
   NotFound,
   CalendarPage,
+  ProfileInfo,
+  ProfileBadges,
+  ProfileEdit,
+  ProfileSettings,
+  CoursesIndex,
+  CoursesMy,
+  CoursesCompleted,
+  CourseIndex,
+  CourseTasks,
+  CourseEdit,
+  TaskIndex,
+  TaskChecks,
 } from "@/pages";
 
 function App() {
@@ -20,21 +32,32 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
 
-            <Route path="/user/:username" element={<ProfilePage />} />
-            <Route path="/user/badges" element={<ProfilePage />} />
-            <Route path="/user/edit" element={<ProfilePage />} />
-            <Route path="/user/settings" element={<ProfilePage />} />
+            <Route path="/user/:username" element={<ProfilePage />}>
+              <Route index element={<ProfileInfo />} />
+              <Route path="badges" element={<ProfileBadges />} />
+              <Route path="edit" element={<ProfileEdit />} />
+              <Route path="settings" element={<ProfileSettings />} />
+            </Route>
 
-            <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/courses/my" element={<CoursesPage />} />
-            <Route path="/courses/completed" element={<CoursesPage />} />
-            <Route path="/courses/:courseId" element={<CoursePage />} />
-            <Route path="/courses/:courseId/assignments" element={<CoursePage />} />
-            <Route path="/courses/:courseId/edit" element={<CoursePage />} />
+            <Route path="/courses" element={<CoursesPage />}>
+              <Route index element={<CoursesIndex />} />
+              <Route path="my" element={<CoursesMy />} />
+              <Route path="completed" element={<CoursesCompleted />} />
+            </Route>
+
+            <Route path="/courses/:courseId" element={<CoursePage />}>
+              <Route index element={<CourseIndex />} />
+              <Route path="tasks" element={<CourseTasks />} />
+              <Route path="edit" element={<CourseEdit />} />
+            </Route>
+
             <Route
-              path="/courses/:courseId/assignments/:assignmentId"
-              element={<AssignmentPage />}
-            />
+              path="/courses/:courseId/tasks/:taskId"
+              element={<TaskPage />}
+            >
+              <Route index element={<TaskIndex />} />
+              <Route path="checks" element={<TaskChecks />} />
+            </Route>
 
             <Route path="/calendar" element={<CalendarPage />} />
             <Route path="*" element={<NotFound />} />

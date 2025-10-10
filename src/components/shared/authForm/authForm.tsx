@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
-import { promiseToast } from "../ui";
+import { promiseToast } from "@/components";
 import {
   loginSchema,
   registerSchema,

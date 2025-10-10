@@ -100,11 +100,11 @@ export const ProfileButton = () => {
         </Link>
 
         <Link
-          to="/user/edit"
+          to="/user/boby/settings"
           className={styles.profileDropdown__link}
           onClick={() => setOpen(false)}
         >
-          Change password
+          Settigns
         </Link>
 
         <button className={styles.profileDropdown__button}>
