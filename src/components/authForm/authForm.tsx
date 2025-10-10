@@ -287,5 +287,10 @@ export const AuthForm = () => {
     }
   };
 
-  return <section className={styles.auth}>{renderStep()}</section>;
+  return (
+    <section className={styles.auth}>
+      {renderStep()}
+      <img className={styles.auth__logo} src="/logo.svg" alt="BattleCode" />
+    </section>
+  );
 };

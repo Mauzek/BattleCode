@@ -6,6 +6,21 @@
     align-items: center;
     min-height: 100vh;
     overflow: hidden;
+    position: relative;
+
+    &__logo {
+        position: absolute;
+        top: $spacing-lg;
+        left: $spacing-lg;
+        height: 84px;
+        z-index: 10;
+
+        @media screen and (max-width: $breakpoint-lg) {
+            left: 50%;
+            top: $spacing-md;
+            transform: translateX(-50%);
+        }
+    }
 
     &__card {
         display: flex;
@@ -75,6 +90,7 @@
     }
 
     &__input {
+
         &:focus+.auth__floatingLabel,
         &:not(:placeholder-shown)+.auth__floatingLabel {
             top: 6px;
@@ -135,7 +151,7 @@
         background-color: #aaa;
     }
 
-    &__qr{
+    &__qr {
         display: flex;
         align-self: center;
         border-radius: $border-radius-lg;
@@ -143,7 +159,7 @@
         background-color: #fff;
         padding: $spacing-xs;
 
-        svg{
+        svg {
             border-radius: $border-radius-md;
         }
     }
