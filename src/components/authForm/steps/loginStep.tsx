@@ -1,5 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import type { LoginFormData } from "@/schemas";
+import { Input } from "@/components/ui";
 import styles from "../authForm.module.scss";
 
 type LoginStepProps = {
@@ -14,6 +15,7 @@ export const LoginStep = ({
   onSubmit,
 }: LoginStepProps) => {
   const { register, handleSubmit, formState } = useFormContext<LoginFormData>();
+  const { errors } = formState;
 
   return (
     <>
@@ -25,37 +27,41 @@ export const LoginStep = ({
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.auth__form}>
         <label className={styles.auth__field}>
-          <input
+          <Input
+            name="username"
+            register={register}
+            errors={errors}
             type="text"
-            {...register("username")}
             autoComplete="username"
-            className={`${styles.auth__input} ${
-              formState.errors.username ? styles["auth__input--error"] : ""
-            }`}
             placeholder=" "
+            className={`${styles.auth__input} ${
+              errors.username ? styles["auth__input--error"] : ""
+            }`}
           />
           <span className={styles.auth__floatingLabel}>Username</span>
-          {formState.errors.username && (
+          {errors.username && (
             <span className={styles.auth__error}>
-              {formState.errors.username.message}
+              {errors.username.message}
             </span>
           )}
         </label>
 
         <label className={styles.auth__field}>
-          <input
+          <Input
+            name="password"
+            register={register}
+            errors={errors}
             type="password"
-            {...register("password")}
             autoComplete="current-password"
-            className={`${styles.auth__input} ${
-              formState.errors.password ? styles["auth__input--error"] : ""
-            }`}
             placeholder=" "
+            className={`${styles.auth__input} ${
+              errors.password ? styles["auth__input--error"] : ""
+            }`}
           />
           <span className={styles.auth__floatingLabel}>Пароль</span>
-          {formState.errors.password && (
+          {errors.password && (
             <span className={styles.auth__error}>
-              {formState.errors.password.message}
+              {errors.password.message}
             </span>
           )}
         </label>

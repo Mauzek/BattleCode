@@ -1,5 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import type { ConfirmCodeFormData } from "@/schemas";
+import { Input } from "@/components/ui";
 import styles from "../authForm.module.scss";
 
 type ConfirmEmailStepProps = {
@@ -33,19 +34,21 @@ export const ConfirmEmailStep = ({
         autoComplete="off"
       >
         <label className={styles.auth__field}>
-          <input
+          <Input
+            name="code"
+            register={register}
+            errors={errors}
             type="text"
             inputMode="numeric"
             maxLength={6}
             autoComplete="one-time-code"
             autoCorrect="off"
             autoCapitalize="off"
-            spellCheck="false"
-            {...register("code")}
+            spellCheck={false}
+            placeholder=" "
             className={`${styles.auth__input} ${
               errors.code ? styles["auth__input--error"] : ""
             }`}
-            placeholder=" "
           />
           <span className={styles.auth__floatingLabel}>Код подтверждения</span>
           {errors.code && (

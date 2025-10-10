@@ -1,6 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import type { Verify2FAFormData } from "@/schemas";
 import styles from "../authForm.module.scss";
+import { Input } from "@/components/ui";
 
 type Verify2FAStepProps = {
   loading: boolean;
@@ -31,15 +32,17 @@ export const Verify2FAStep = ({
         autoComplete="off"
       >
         <label className={styles.auth__field}>
-          <input
+          <Input
+            name="code"
+            register={register}
+            errors={errors}
             type="text"
             inputMode="numeric"
             maxLength={6}
             autoComplete="one-time-code"
             autoCorrect="off"
             autoCapitalize="off"
-            spellCheck="false"
-            {...register("code")}
+            spellCheck={false}
             className={`${styles.auth__input} ${
               errors.code ? styles["auth__input--error"] : ""
             }`}

@@ -1,5 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import type { RegisterFormData } from "@/schemas";
+import { Input } from "@/components/ui";
 import styles from "../authForm.module.scss";
 
 type RegisterStepProps = {
@@ -13,7 +14,8 @@ export const RegisterStep = ({
   onBack,
   onSubmit,
 }: RegisterStepProps) => {
-  const { register, handleSubmit, formState } = useFormContext<RegisterFormData>();
+  const { register, handleSubmit, formState } =
+    useFormContext<RegisterFormData>();
   const { errors } = formState;
 
   return (
@@ -24,13 +26,15 @@ export const RegisterStep = ({
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.auth__form}>
         <label className={styles.auth__field}>
-          <input
+          <Input
+            name="username"
+            register={register}
+            errors={errors}
             type="text"
-            {...register("username")}
+            placeholder=" "
             className={`${styles.auth__input} ${
               errors.username ? styles["auth__input--error"] : ""
             }`}
-            placeholder=" "
           />
           <span className={styles.auth__floatingLabel}>Username</span>
           {errors.username && (
@@ -41,32 +45,34 @@ export const RegisterStep = ({
         </label>
 
         <label className={styles.auth__field}>
-          <input
+          <Input
+            name="email"
+            register={register}
+            errors={errors}
             type="email"
-            {...register("email")}
             autoComplete="email"
+            placeholder=" "
             className={`${styles.auth__input} ${
               errors.email ? styles["auth__input--error"] : ""
             }`}
-            placeholder=" "
           />
           <span className={styles.auth__floatingLabel}>Email</span>
           {errors.email && (
-            <span className={styles.auth__error}>
-              {errors.email.message}
-            </span>
+            <span className={styles.auth__error}>{errors.email.message}</span>
           )}
         </label>
 
         <label className={styles.auth__field}>
-          <input
+          <Input
+            name="password"
+            register={register}
+            errors={errors}
             type="password"
-            {...register("password")}
             autoComplete="new-password"
+            placeholder=" "
             className={`${styles.auth__input} ${
               errors.password ? styles["auth__input--error"] : ""
             }`}
-            placeholder=" "
           />
           <span className={styles.auth__floatingLabel}>Password</span>
           {errors.password && (
@@ -77,14 +83,16 @@ export const RegisterStep = ({
         </label>
 
         <label className={styles.auth__field}>
-          <input
+          <Input
+            name="confirmPassword"
+            register={register}
+            errors={errors}
             type="password"
-            {...register("confirmPassword")}
             autoComplete="new-password"
+            placeholder=" "
             className={`${styles.auth__input} ${
               errors.confirmPassword ? styles["auth__input--error"] : ""
             }`}
-            placeholder=" "
           />
           <span className={styles.auth__floatingLabel}>
             Confirm the password
