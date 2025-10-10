@@ -9,6 +9,7 @@
     width: 100%;
     padding-top: $spacing-sm;
     margin-bottom: 1.5rem;
+    height: 123px;
 
     &__header {
         display: flex;
@@ -48,11 +49,8 @@
         margin: 0;
         padding: 0 $spacing-xl;
         scroll-behavior: smooth;
-
-        // Без прокрутки по умолчанию
         overflow-x: hidden;
 
-        // При 3+ табах
         &--scrollable {
             overflow-x: auto;
             scrollbar-width: none;
@@ -66,8 +64,6 @@
                 justify-content: flex-start;
             }
         }
-
-
     }
 
     &__item {
