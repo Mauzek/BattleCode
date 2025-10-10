@@ -8,20 +8,29 @@ import {
   registerSchema,
   confirmCodeSchema,
   verify2FASchema,
+  forgotPasswordSchema,
   type LoginFormData,
   type RegisterFormData,
   type ConfirmCodeFormData,
   type Verify2FAFormData,
+  type ForgotPasswordFormData,
 } from "@/schemas";
 import { LoginStep } from "./steps/loginStep";
 import { RegisterStep } from "./steps/registerStep";
 import { ConfirmEmailStep } from "./steps/confirmEmailStep";
 import { TwoFAStep } from "./steps/twoFAStep";
 import { Verify2FAStep } from "./steps/verify2FAStep";
+import { ForgotPasswordStep } from "./steps/forgotPasswordStep";
 import styles from "./authForm.module.scss";
 import { useNavigate } from "react-router-dom";
 
-type AuthStep = "login" | "register" | "confirmEmail" | "twoFA" | "verify2FA";
+type AuthStep =
+  | "login"
+  | "register"
+  | "confirmEmail"
+  | "twoFA"
+  | "verify2FA"
+  | "forgotPassword";
 
 export const AuthForm = () => {
   const [step, setStep] = useState<AuthStep>("login");
@@ -29,6 +38,7 @@ export const AuthForm = () => {
   const [registrationData, setRegistrationData] =
     useState<RegisterFormData | null>(null);
   const navigate = useNavigate();
+
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onBlur",
@@ -49,16 +59,23 @@ export const AuthForm = () => {
     mode: "onBlur",
   });
 
+  const forgotPasswordForm = useForm<ForgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordSchema),
+    mode: "onBlur",
+  });
+
   const { reset: resetLogin } = loginForm;
   const { reset: resetRegister } = registerForm;
   const { reset: resetConfirm } = confirmCodeForm;
   const { reset: resetVerify2FA } = verify2FAForm;
+  const { reset: resetForgotPassword } = forgotPasswordForm;
 
   const resetAllForms = () => {
     resetLogin();
     resetRegister();
     resetConfirm();
     resetVerify2FA();
+    resetForgotPassword();
     setRegistrationData(null);
   };
 
@@ -152,6 +169,27 @@ export const AuthForm = () => {
     }
   };
 
+  const onForgotPasswordSubmit = async (data: ForgotPasswordFormData) => {
+    setLoading(true);
+    try {
+      await promiseToast(
+        () => new Promise((resolve) => setTimeout(resolve, 600)),
+        {
+          loading: "Sending recovery email...",
+          success: () => `Recovery link sent to ${data.email}`,
+          error: () => "Failed to send recovery email",
+        }
+      );
+
+      setStep("login");
+      resetForgotPassword();
+    } catch (err) {
+      console.error("Forgot password error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const generateOtpAuthUrl = (username: string): string => {
     const secret = "JBSWY3DPEHPK3PXP";
     return `otpauth://totp/BattleCode:${encodeURIComponent(
@@ -168,6 +206,7 @@ export const AuthForm = () => {
               <LoginStep
                 loading={loading}
                 onSwitchToRegister={() => setStep("register")}
+                onForgotPassword={() => setStep("forgotPassword")}
                 onSubmit={onLoginSubmit}
               />
             </div>
@@ -225,6 +264,19 @@ export const AuthForm = () => {
                   resetVerify2FA();
                 }}
                 onSubmit={onVerify2FASubmit}
+              />
+            </div>
+          </FormProvider>
+        );
+
+      case "forgotPassword":
+        return (
+          <FormProvider {...forgotPasswordForm}>
+            <div className={styles.auth__card} key="forgotPassword">
+              <ForgotPasswordStep
+                loading={loading}
+                onBack={() => setStep("login")}
+                onSubmit={onForgotPasswordSubmit}
               />
             </div>
           </FormProvider>

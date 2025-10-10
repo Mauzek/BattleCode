@@ -6,12 +6,14 @@ import styles from "../authForm.module.scss";
 type LoginStepProps = {
   loading: boolean;
   onSwitchToRegister: () => void;
+  onForgotPassword: () => void;
   onSubmit: (data: LoginFormData) => void;
 };
 
 export const LoginStep = ({
   loading,
   onSwitchToRegister,
+  onForgotPassword,
   onSubmit,
 }: LoginStepProps) => {
   const { register, handleSubmit, formState } = useFormContext<LoginFormData>();
@@ -78,6 +80,7 @@ export const LoginStep = ({
             type="button"
             className={`${styles.auth__button} ${styles["auth__button--trasperent"]}`}
             disabled={loading}
+            onClick={onForgotPassword}
           >
             Forgot your password?
           </button>
