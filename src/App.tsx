@@ -22,6 +22,8 @@ import {
   CourseEdit,
   TaskIndex,
   TaskChecks,
+  CalendarIndex,
+  CalendarEvents,
 } from "@/pages";
 
 function App() {
@@ -59,7 +61,11 @@ function App() {
               <Route path="checks" element={<TaskChecks />} />
             </Route>
 
-            <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/calendar" element={<CalendarPage />}>
+              <Route index element={<CalendarIndex />} />
+              <Route path="events" element={<CalendarEvents />} />
+            </Route>
+
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>

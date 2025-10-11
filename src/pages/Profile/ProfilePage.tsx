@@ -14,7 +14,9 @@ const ProfilePage = () => {
   return (
     <main style={{ height: "1000px" }}>
       <SectionTabs tabs={profileTabs} label={username} />
-      <Outlet />
+      <section className="content">
+        <Outlet />
+      </section>
     </main>
   );
 };

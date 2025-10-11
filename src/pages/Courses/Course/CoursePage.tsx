@@ -13,7 +13,9 @@ const CoursePage = () => {
   return (
     <main className="course-page">
       <SectionTabs tabs={courseTabs} label={`Course ${courseId}`} />
-      <Outlet />
+      <section className="content">
+        <Outlet />
+      </section>
     </main>
   );
 };

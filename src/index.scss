@@ -137,6 +137,27 @@ img {
   user-select: none;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  max-width: 1260px;
+  width: 100%;
+
+  @media screen and (max-width: 1260px) {
+    padding: 0 $spacing-md;
+  }
+
+  @media screen and (max-width: $breakpoint-sm) {
+    padding: 0 $spacing-sm;
+  }
+}
 
 :target {
   scroll-margin-top: 200px;

@@ -11,7 +11,9 @@ const CoursesPage = () => {
   return (
     <main className="courses-page">
       <SectionTabs tabs={coursesTabs} label="Courses" />
-      <Outlet />
+      <section className="content">
+        <Outlet />
+      </section>
     </main>
   );
 };

@@ -15,10 +15,11 @@ const TaskPage = () => {
   return (
     <main className="task-page">
       <SectionTabs tabs={taskTabs} label={`Task ${taskId}`} />
-      <Outlet />
+      <section className="content">
+        <Outlet />
+      </section>
     </main>
   );
 };
-
 
 export default TaskPage;
