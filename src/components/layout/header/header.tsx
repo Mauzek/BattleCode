@@ -35,7 +35,7 @@ export const Header = () => {
         const progress = clamp(currentScroll / 120, 0, 1);
 
         const scale = 1 - progress * 0.35; 
-        const yOffset = -progress * 25; 
+        const yOffset = -progress * 41; 
 
         gsap.to(logo, {
           scale,
