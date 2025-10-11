@@ -143,6 +143,10 @@ main {
   align-items: center;
 }
 
+main.auth{
+    align-items: stretch;
+}
+
 .content {
   display: flex;
   flex-direction: column;

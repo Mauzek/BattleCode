@@ -1,9 +1,9 @@
-import { AuthForm } from "@/components"
+import { AuthForm } from "@/components";
 
 export const AuthPage = () => {
   return (
-    <main>
-        <AuthForm/>
+    <main className="auth">
+      <AuthForm />
     </main>
-  )
-}
+  );
+};
