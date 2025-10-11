@@ -2,12 +2,13 @@ import { useFormContext } from "react-hook-form";
 import type { LoginFormData } from "@/schemas";
 import { Input } from "@/components/ui";
 import styles from "../authForm.module.scss";
+import { env } from "@/config/env";
 
 type LoginStepProps = {
   loading: boolean;
   onSwitchToRegister: () => void;
   onForgotPassword: () => void;
-  onSubmit: (data: LoginFormData) => void;
+  onSubmit: (data: LoginFormData & { captchaResponse: string }) => void;
 };
 
 export const LoginStep = ({
@@ -19,15 +20,29 @@ export const LoginStep = ({
   const { register, handleSubmit, formState } = useFormContext<LoginFormData>();
   const { errors } = formState;
 
+  const handleLogin = async (data: LoginFormData) => {
+    if (!window.grecaptcha?.enterprise) {
+      alert("CAPTCHA не загружена");
+      return;
+    }
+
+    const token = await window.grecaptcha.enterprise.execute(env.siteKey, {
+      action: "login",
+    });
+
+    onSubmit({ ...data, captchaResponse: token });
+  };
+
   return (
     <>
       <div className={styles.auth__info}>
         <h1 className={styles.auth__title}>Welcome to BattleCode</h1>
         <p className={styles.auth__text}>
-          Please enter your login and password that you received earlie
+          Please enter your login and password
         </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.auth__form}>
+
+      <form onSubmit={handleSubmit(handleLogin)} className={styles.auth__form}>
         <label className={styles.auth__field}>
           <Input
             name="username"
@@ -42,9 +57,7 @@ export const LoginStep = ({
           />
           <span className={styles.auth__floatingLabel}>Username</span>
           {errors.username && (
-            <span className={styles.auth__error}>
-              {errors.username.message}
-            </span>
+            <span className={styles.auth__error}>{errors.username.message}</span>
           )}
         </label>
 
@@ -60,20 +73,14 @@ export const LoginStep = ({
               errors.password ? styles["auth__input--error"] : ""
             }`}
           />
-          <span className={styles.auth__floatingLabel}>Пароль</span>
+          <span className={styles.auth__floatingLabel}>Password</span>
           {errors.password && (
-            <span className={styles.auth__error}>
-              {errors.password.message}
-            </span>
+            <span className={styles.auth__error}>{errors.password.message}</span>
           )}
         </label>
 
         <div className={styles.auth__actions}>
-          <button
-            type="submit"
-            className={styles.auth__button}
-            disabled={loading}
-          >
+          <button type="submit" className={styles.auth__button} disabled={loading}>
             Log in
           </button>
           <button
@@ -88,9 +95,7 @@ export const LoginStep = ({
 
         <div className={styles.auth__division} />
 
-        <div
-          className={`${styles.auth__actions} ${styles["auth__actions--bottom"]}`}
-        >
+        <div className={`${styles.auth__actions} ${styles["auth__actions--bottom"]}`}>
           <p className={styles.auth__text}>Don't have an account?</p>
           <button
             type="button"

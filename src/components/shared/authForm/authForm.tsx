@@ -84,29 +84,44 @@ export const AuthForm = () => {
     return new Promise((resolve) => setTimeout(() => resolve("OK"), 1000));
   };
 
-  const onLoginSubmit = async (data: LoginFormData) => {
-    setLoading(true);
-    try {
-      await promiseToast(() => sendData(data), {
+const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) => {
+  setLoading(true);
+  try {
+    await promiseToast(
+      () =>
+        new Promise<void>((resolve, reject) => {
+          setTimeout(() => {
+            const shouldSucceed = true; 
+            if (shouldSucceed) {
+              resolve();
+            } else {
+              reject(new Error("Incorrect username or password"));
+            }
+          }, 1000);
+        }),
+      {
         loading: "Logging in...",
         success: () => "Login successful",
-        error: () => "Incorrect username or password",
-      });
-
-      const userHas2FA = true;
-
-      if (userHas2FA) {
-        setStep("verify2FA");
-      } else {
-        resetLogin();
-        console.log("Welcome! No 2FA required.");
+        error: (err) => (err instanceof Error ? err.message : "Login failed"),
       }
-    } catch (err) {
-      console.error("Login error:", err);
-    } finally {
-      setLoading(false);
+    );
+    console.log('Login: '+ data.username)
+    console.log('password: '+ data.password)
+    console.log('captchaResponse: '+ data.captchaResponse)
+    const userHas2FA = true; 
+
+    if (userHas2FA) {
+      setStep("verify2FA");
+    } else {
+      resetLogin();
+      console.log("Welcome! No 2FA required.");
     }
-  };
+  } catch (err) {
+    console.error("Login error:", err);
+  } finally {
+    setLoading(false);
+  }
+}
 
   const onVerify2FASubmit = async (data: Verify2FAFormData) => {
     setLoading(true);
@@ -119,7 +134,7 @@ export const AuthForm = () => {
         {
           loading: "Verifying 2FA code...",
           success: () => "2FA verified! Access granted.",
-          error: (err) => `Invalid code: ${err}`,
+          error: () => `Invalid code`,
         }
       );
       console.log(`2FA: ${data}`);
