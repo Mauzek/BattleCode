@@ -11,7 +11,11 @@ const registerSchema = z
       .string()
       .min(1, "Enter your email address")
       .email("Invalid email address"),
-    username: z.string().min(3, "Username must be 3 characters long"),
+    username: z
+      .string()
+      .min(3, "Username must be at least 3 characters long")
+      .max(20, "Maximum 20 characters")
+      .regex(/^[A-Za-z0-9]+$/, "Only English letters and numbers, no spaces"),
     password: z.string().min(6, "Minimum of 6 characters"),
     confirmPassword: z.string(),
   })

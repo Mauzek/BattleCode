@@ -143,8 +143,8 @@ main {
   align-items: center;
 }
 
-main.auth{
-    align-items: stretch;
+.auth{
+  align-items: stretch;
 }
 
 .content {
@@ -163,10 +163,20 @@ main.auth{
   }
 }
 
+.grecaptcha-badge {
+  display: none !important; 
+}
+
+.auth-visible .grecaptcha-badge {
+  display: block !important;
+  opacity: 0.4;
+  transform: scale(0.85);
+  z-index: 1000;
+}
+
 :target {
   scroll-margin-top: 200px;
 }
-
 
 ::-webkit-scrollbar {
   width: 8px;
