@@ -2,6 +2,7 @@ import { useFormContext } from "react-hook-form";
 import type { Verify2FAFormData } from "@/schemas";
 import styles from "../authForm.module.scss";
 import { Input } from "@/components/ui";
+import { useTranslation } from "@/hooks";
 
 type Verify2FAStepProps = {
   loading: boolean;
@@ -17,13 +18,14 @@ export const Verify2FAStep = ({
   const { register, handleSubmit, formState } =
     useFormContext<Verify2FAFormData>();
   const { errors } = formState;
+  const { t } = useTranslation();
 
   return (
     <>
       <div className={styles.auth__info}>
-        <h1 className={styles.auth__title}>Two-Factor Authentication</h1>
+        <h1 className={styles.auth__title}>{t("Two-Factor Authentication")}</h1>
         <p className={styles.auth__text}>
-          Enter the 6-digit code from your authenticator app
+          {t("Enter the 6-digit code from your authenticator app")}
         </p>
       </div>
       <form
@@ -49,10 +51,12 @@ export const Verify2FAStep = ({
             placeholder=" "
           />
           <span className={styles.auth__floatingLabel}>
-            Authentication code
+            {t("Authentication code")}
           </span>
           {errors.code && (
-            <span className={styles.auth__error}>{errors.code.message}</span>
+            <span className={styles.auth__error}>
+              {t(errors.code.message ?? "")}
+            </span>
           )}
         </label>
 
@@ -62,14 +66,14 @@ export const Verify2FAStep = ({
             className={styles.auth__button}
             disabled={loading}
           >
-            Verify
+            {t("Send")}
           </button>
           <button
             type="button"
             className={`${styles.auth__button} ${styles["auth__button--trasperent"]}`}
             onClick={onBack}
           >
-            Back
+            {t("Back")}
           </button>
         </div>
       </form>

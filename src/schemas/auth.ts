@@ -29,7 +29,7 @@ const confirmCodeSchema = z.object({
     .string()
     .min(6, "The code must contain 6 digits")
     .max(6, "The code must contain 6 digits")
-    .regex(/^\d+$/, "Код должен состоять только из цифр"),
+    .regex(/^\d+$/, "The code must consist of numbers only"),
 });
 
 const verify2FASchema = z.object({

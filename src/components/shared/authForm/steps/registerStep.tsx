@@ -2,6 +2,7 @@ import { useFormContext } from "react-hook-form";
 import type { RegisterFormData } from "@/schemas";
 import { Input } from "@/components/ui";
 import styles from "../authForm.module.scss";
+import { useTranslation } from "@/hooks";
 
 type RegisterStepProps = {
   loading: boolean;
@@ -17,12 +18,17 @@ export const RegisterStep = ({
   const { register, handleSubmit, formState } =
     useFormContext<RegisterFormData>();
   const { errors } = formState;
+  const { t } = useTranslation();
 
   return (
     <>
       <div className={styles.auth__info}>
-        <h1 className={styles.auth__title}>Registration in BattleCode</h1>
-        <p className={styles.auth__text}>Create your account to get started</p>
+        <h1 className={styles.auth__title}>
+          {t("Registration in BattleCode")}
+        </h1>
+        <p className={styles.auth__text}>
+          {t("Create your account to get started")}
+        </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.auth__form}>
         <label className={styles.auth__field}>
@@ -36,10 +42,10 @@ export const RegisterStep = ({
               errors.username ? styles["auth__input--error"] : ""
             }`}
           />
-          <span className={styles.auth__floatingLabel}>Username</span>
+          <span className={styles.auth__floatingLabel}>{t("Username")}</span>
           {errors.username && (
             <span className={styles.auth__error}>
-              {errors.username.message}
+              {t(errors.username.message ?? "")}
             </span>
           )}
         </label>
@@ -58,7 +64,9 @@ export const RegisterStep = ({
           />
           <span className={styles.auth__floatingLabel}>Email</span>
           {errors.email && (
-            <span className={styles.auth__error}>{errors.email.message}</span>
+            <span className={styles.auth__error}>
+              {t(errors.email.message ?? "")}
+            </span>
           )}
         </label>
 
@@ -74,10 +82,10 @@ export const RegisterStep = ({
               errors.password ? styles["auth__input--error"] : ""
             }`}
           />
-          <span className={styles.auth__floatingLabel}>Password</span>
+          <span className={styles.auth__floatingLabel}>{t("Password")}</span>
           {errors.password && (
             <span className={styles.auth__error}>
-              {errors.password.message}
+              {t(errors.password.message ?? "")}
             </span>
           )}
         </label>
@@ -95,11 +103,11 @@ export const RegisterStep = ({
             }`}
           />
           <span className={styles.auth__floatingLabel}>
-            Confirm the password
+            {t("Confirm the password")}
           </span>
           {errors.confirmPassword && (
             <span className={styles.auth__error}>
-              {errors.confirmPassword.message}
+              {t(errors.confirmPassword.message ?? "")}
             </span>
           )}
         </label>
@@ -110,14 +118,14 @@ export const RegisterStep = ({
             className={styles.auth__button}
             disabled={loading}
           >
-            Next
+            {t("Next")}
           </button>
           <button
             type="button"
             className={`${styles.auth__button} ${styles["auth__button--trasperent"]}`}
             onClick={onBack}
           >
-            Back
+            {t("Back")}
           </button>
         </div>
       </form>

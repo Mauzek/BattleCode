@@ -23,6 +23,7 @@ import { Verify2FAStep } from "./steps/verify2FAStep";
 import { ForgotPasswordStep } from "./steps/forgotPasswordStep";
 import styles from "./authForm.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "@/hooks";
 
 type AuthStep =
   | "login"
@@ -38,6 +39,7 @@ export const AuthForm = () => {
   const [registrationData, setRegistrationData] =
     useState<RegisterFormData | null>(null);
   const navigate = useNavigate();
+  const {t} = useTranslation();
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -95,14 +97,14 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
             if (shouldSucceed) {
               resolve();
             } else {
-              reject(new Error("Incorrect username or password"));
+              reject(new Error(t(("Incorrect username or password"))));
             }
           }, 1000);
         }),
       {
-        loading: "Logging in...",
-        success: () => "Login successful",
-        error: (err) => (err instanceof Error ? err.message : "Login failed"),
+        loading: `${t("Logging in")}...`,
+        success: () => t("Login successful"),
+        error: (err) => (err instanceof Error ? err.message : t("Login failed")),
       }
     );
     console.log('Login: '+ data.username)
@@ -132,9 +134,9 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
             setTimeout(() => r("mock-jwt-token"), 800)
           ),
         {
-          loading: "Verifying 2FA code...",
-          success: () => "2FA verified! Access granted.",
-          error: () => `Invalid code`,
+          loading: `${t("Verifying 2FA code")}...`,
+          success: () => t("2FA verified! Access granted"),
+          error: () => t("Invalid code"),
         }
       );
       console.log(`2FA: ${data}`);
@@ -154,9 +156,9 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
     setLoading(true);
     try {
       await promiseToast(() => sendData(data), {
-        loading: "Registering...",
-        success: () => "Registration initiated. Check your email for a code.",
-        error: (err) => `Error: ${err}`,
+        loading: `${t("Registering")}...`,
+        success: () => t("Check your email for a code"),
+        error: (err) => `${t("Error")}: ${err}`,
       });
       setRegistrationData(data);
       setStep("confirmEmail");
@@ -172,9 +174,9 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
     try {
       console.log(`confirm: ${data.code}`);
       await promiseToast(() => new Promise((r) => setTimeout(r, 800)), {
-        loading: "Verifying code...",
-        success: () => "Email confirmed!",
-        error: (err) => `Verification failed: ${err}`,
+        loading: `${t("Verifying code")}...`,
+        success: () => `${t("Email confirmed")}!`,
+        error: (err) => `${t("Verification failed")}: ${err}`,
       });
       setStep("twoFA");
     } catch (err) {
@@ -190,12 +192,12 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
       await promiseToast(
         () => new Promise((resolve) => setTimeout(resolve, 600)),
         {
-          loading: "Sending recovery email...",
-          success: () => `Recovery link sent to ${data.email}`,
-          error: () => "Failed to send recovery email",
+          loading: `${t("Sending recovery email")}...`,
+          success: () => t("Recovery link sent"),
+          error: () => t("Failed to send recovery email"),
         }
       );
-
+      console.log("fogotPassword: " + data)
       setStep("login");
       resetForgotPassword();
     } catch (err) {

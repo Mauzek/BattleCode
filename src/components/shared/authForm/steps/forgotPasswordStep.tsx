@@ -2,6 +2,7 @@ import { useFormContext } from "react-hook-form";
 import type { ForgotPasswordFormData } from "@/schemas";
 import { Input } from "@/components/ui";
 import styles from "../authForm.module.scss";
+import { useTranslation } from "@/hooks";
 
 type ForgotPasswordStepProps = {
   loading: boolean;
@@ -17,13 +18,16 @@ export const ForgotPasswordStep = ({
   const { register, handleSubmit, formState } =
     useFormContext<ForgotPasswordFormData>();
   const { errors } = formState;
+  const { t } = useTranslation();
 
   return (
     <>
       <div className={styles.auth__info}>
-        <h1 className={styles.auth__title}>Forgot Password?</h1>
+        <h1 className={styles.auth__title}>{t("Forgot your password")}?</h1>
         <p className={styles.auth__text}>
-          Enter your email and we’ll send you a link to reset your password.
+          {t(
+            "Enter your email and we’ll send you a link to reset your password"
+          )}
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.auth__form}>
@@ -41,7 +45,9 @@ export const ForgotPasswordStep = ({
           />
           <span className={styles.auth__floatingLabel}>Email</span>
           {errors.email && (
-            <span className={styles.auth__error}>{errors.email.message}</span>
+            <span className={styles.auth__error}>
+              {t(errors.email.message ?? "")}
+            </span>
           )}
         </label>
 
@@ -51,7 +57,7 @@ export const ForgotPasswordStep = ({
             className={styles.auth__button}
             disabled={loading}
           >
-            Send Reset Link
+            {t("Send")}
           </button>
           <button
             type="button"
@@ -59,7 +65,7 @@ export const ForgotPasswordStep = ({
             onClick={onBack}
             disabled={loading}
           >
-            Back to Login
+            {t("Back")}
           </button>
         </div>
       </form>

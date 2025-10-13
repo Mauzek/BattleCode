@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { LuNotebookPen } from "react-icons/lu";
 import { NotifButton } from "./notifButton";
 import { ProfileButton } from "./profileButton";
+import { useTranslation } from "@/hooks";
 
 const MOBILE_BREAKPOINT = 850;
 const HEADER_HEIGHT = 30;
@@ -15,6 +16,7 @@ export const Header = () => {
   const logoRef = useRef<HTMLImageElement>(null);
   const isHiddenRef = useRef(false);
   const lastScrollY = useRef(0);
+  const {t} = useTranslation();
 
   useEffect(() => {
     const header = headerRef.current;
@@ -104,19 +106,19 @@ export const Header = () => {
             to="/"
             className={`${styles.header__link} ${pathname === "/" ? styles["header__link--active"] : ""}`}
           >
-            Dashboard
+            {t("Dashboard")}
           </Link>
           <Link
             to="/courses"
             className={`${styles.header__link} ${pathname.startsWith("/courses") ? styles["header__link--active"] : ""}`}
           >
-            Courses
+            {t("Courses")}
           </Link>
           <Link
             to="/calendar"
             className={`${styles.header__link} ${pathname.startsWith("/calendar") ? styles["header__link--active"] : ""}`}
           >
-            Calendar
+            {t("Calendar")}
           </Link>
         </nav>
       </div>
@@ -126,7 +128,7 @@ export const Header = () => {
           <Link
             to="/courses/my"
             className={`${styles.header__action} ${styles["header__action--mycourses"]}`}
-            data-label="Мои курсы"
+            data-label={t("My Courses")}
           >
             <LuNotebookPen color="#fff" size={24} />
           </Link>

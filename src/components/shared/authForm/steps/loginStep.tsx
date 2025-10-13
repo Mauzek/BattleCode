@@ -20,7 +20,7 @@ export const LoginStep = ({
 }: LoginStepProps) => {
   const { register, handleSubmit, formState } = useFormContext<LoginFormData>();
   const { errors } = formState;
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const handleLogin = async (data: LoginFormData) => {
     if (!window.grecaptcha?.enterprise) {
@@ -38,9 +38,9 @@ export const LoginStep = ({
   return (
     <>
       <div className={styles.auth__info}>
-        <h1 className={styles.auth__title}>Welcome to BattleCode</h1>
+        <h1 className={styles.auth__title}>{t("Welcome to BattleCode")}</h1>
         <p className={styles.auth__text}>
-{t('Please enter your login and password')}
+          {t("Please enter your login and password")}
         </p>
       </div>
 
@@ -57,9 +57,11 @@ export const LoginStep = ({
               errors.username ? styles["auth__input--error"] : ""
             }`}
           />
-          <span className={styles.auth__floatingLabel}>Username</span>
+          <span className={styles.auth__floatingLabel}>{t("Username")}</span>
           {errors.username && (
-            <span className={styles.auth__error}>{errors.username.message}</span>
+            <span className={styles.auth__error}>
+              {t(errors.username.message ?? "")}
+            </span>
           )}
         </label>
 
@@ -75,15 +77,21 @@ export const LoginStep = ({
               errors.password ? styles["auth__input--error"] : ""
             }`}
           />
-          <span className={styles.auth__floatingLabel}>Password</span>
+          <span className={styles.auth__floatingLabel}>{t("Password")}</span>
           {errors.password && (
-            <span className={styles.auth__error}>{errors.password.message}</span>
+            <span className={styles.auth__error}>
+              {t(errors.password.message ?? "")}
+            </span>
           )}
         </label>
 
         <div className={styles.auth__actions}>
-          <button type="submit" className={styles.auth__button} disabled={loading}>
-            Log in
+          <button
+            type="submit"
+            className={styles.auth__button}
+            disabled={loading}
+          >
+            {t("Log in")}
           </button>
           <button
             type="button"
@@ -91,20 +99,22 @@ export const LoginStep = ({
             disabled={loading}
             onClick={onForgotPassword}
           >
-            Forgot your password?
+            {t("Forgot your password")}?
           </button>
         </div>
 
         <div className={styles.auth__division} />
 
-        <div className={`${styles.auth__actions} ${styles["auth__actions--bottom"]}`}>
-          <p className={styles.auth__text}>Don't have an account?</p>
+        <div
+          className={`${styles.auth__actions} ${styles["auth__actions--bottom"]}`}
+        >
+          <p className={styles.auth__text}>{t("Don't have an account")}?</p>
           <button
             type="button"
             className={`${styles.auth__button} ${styles["auth__button--trasperent"]}`}
             onClick={onSwitchToRegister}
           >
-            Registration
+            {t("Registration")}
           </button>
         </div>
       </form>
