@@ -1,22 +1,26 @@
 @use '@/styles/variables' as *;
+@use '@/styles/variables.light' as light;
 @use 'sass:color';
 
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    $bg-light 25%,
-    color.adjust($bg-light, $lightness: 5%) 50%,
-    $bg-light 75%
-  );
+  background: linear-gradient(90deg, $bg-light 25%, color.adjust($bg-light, $lightness: 5%) 50%, $bg-light 75%);
   background-size: 200% 100%;
   animation: loading 1.5s infinite;
   display: block;
+
+  [data-theme="light"] & {
+    background-image: linear-gradient(90deg,
+        light.$bg-light 25%,
+        color.adjust(light.$bg-light, $lightness: 5%) 50%,
+        light.$bg-light 75%);
+  }
 }
 
 @keyframes loading {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }

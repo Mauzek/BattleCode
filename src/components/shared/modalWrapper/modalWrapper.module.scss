@@ -1,4 +1,5 @@
 @use "@styles/_variables" as *;
+@use "@styles/_variables.light" as light;
 @use "@styles/_mixins" as *;
 
 .backdrop {
@@ -25,6 +26,10 @@
     display: flex;
     flex-direction: column;
     touch-action: none;
+
+    [data-theme="light"] & {
+        background-color: light.$bg-primary;
+    }
 
     &__dragHandle {
         width: 40px;
@@ -60,9 +65,20 @@
         padding: $spacing-sm;
         background: $bg-primary;
         transition: background-color $transition-fast;
+        color: $text-primary;
 
         @include hover-only {
             background-color: $accent-purple;
+        }
+
+        [data-theme="light"] & {
+            background-color: light.$bg-primary !important;
+            color: light.$text-primary !important;
+
+            @include hover-only {
+                background-color: $accent-purple !important;
+                color: $text-primary !important;
+            }
         }
     }
 }

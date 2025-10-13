@@ -1,10 +1,12 @@
 @use "@styles/_variables" as *;
+@use "@styles/_variables.light" as light;
 @use "@styles/_mixins" as *;
 
 .section-tabs {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: $bg-primary;
     box-shadow: 0px 2px 3px rgba(81, 96, 119, 0.2);
     width: 100%;
     padding-top: $spacing-sm;
@@ -28,12 +30,24 @@
         @include hover-only {
             color: $accent-dark-purple;
         }
+
+        [data-theme="light"] & {
+            color: #AEBBCA;
+
+            @include hover-only {
+                color: $accent-dark-purple;
+            }
+        }
     }
 
     &__title {
         margin: 0;
         font-size: $font-size-2xl;
         font-weight: $font-weight-bold;
+
+        [data-theme="light"] & {
+            color: light.$bg-primary !important;
+        }
     }
 
     &__nav {
@@ -109,6 +123,14 @@
                 width: 100%;
             }
         }
+
+        [data-theme="light"] & {
+            color: light.$bg-primary !important;
+
+            &--active {
+                color: $primary-light !important;
+            }
+        }
     }
 
     &__nav::before,
@@ -158,7 +180,7 @@
         height: 100%;
         width: 40px;
         z-index: 5;
-        color: rgb(198, 207, 218);
+        color: rgb(198, 207, 218) !important;
         transition: all 0.2s ease;
 
         &--left {

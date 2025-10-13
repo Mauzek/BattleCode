@@ -2,11 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import { MdMoreVert } from "react-icons/md";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
-import { LuMoon, LuLogOut } from "react-icons/lu";
+import { LuMoon, LuLogOut, LuSun } from "react-icons/lu";
 import styles from "./header.module.scss";
+import { useTheme } from "@/hooks";
 
 export const ProfileButton = () => {
   const [open, setOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLDivElement | null>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
@@ -107,11 +109,11 @@ export const ProfileButton = () => {
           Settigns
         </Link>
 
-        <button className={styles.profileDropdown__button}>
+        <button className={styles.profileDropdown__button} onClick={toggleTheme}>
           <div className={styles.profileDropdown__theme}>
             <p className={styles.profileDropdown__themeLabel}>Switch theme</p>
             <p className={styles.profileDropdown__themeMode}>
-              <LuMoon /> Dark mode
+              {theme === "light" ? <><LuSun /> Light mode </>: <><LuMoon /> Dark mode</>}
             </p>
           </div>
         </button>
@@ -121,7 +123,7 @@ export const ProfileButton = () => {
         <button
           className={`${styles.profileDropdown__button} ${styles["profileDropdown__button--logout"]}`}
         >
-          <LuLogOut color="#fff" size={24} /> Log out
+          <LuLogOut size={24} /> Log out
         </button>
       </div>
     </div>

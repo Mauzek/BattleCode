@@ -185,7 +185,7 @@ export const ModalWrapper = ({
     <div ref={backdropRef} className={styles.backdrop} onClick={handleClickOutside}>
       <div ref={modalRef} className={modalClass}>
         <button className={styles.modal__close} onClick={handleCloseModal}>
-          <IoClose size={24} color="#fff" />
+          <IoClose size={24}/>
         </button>
         {isMobile && <div className={styles.modal__dragHandle} />}
         {title && <h2 className={styles.modal__title}>{title}</h2>}
