@@ -1,6 +1,5 @@
 @use "@styles/_variables" as *;
-
-@use "@styles/_variables" as *;
+@use "@styles/_variables.light" as light;
 
 .navBar {
     display: none;
@@ -35,6 +34,14 @@
         &--active {
             color: $primary-light;
             background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] & {
+          color: #aaa;
+
+            &--active{
+                 color: $primary-light !important;
+            }
         }
     }
 

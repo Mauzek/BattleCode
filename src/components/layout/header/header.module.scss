@@ -1,5 +1,6 @@
 @use "@styles/_variables" as *;
 @use "@styles/_mixins" as *;
+@use "@styles/_variables.light" as light;
 
 .header {
     display: grid;
@@ -22,52 +23,32 @@
         padding: 0 $spacing-md;
     }
 
-&__logo {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 84px; 
-  overflow: visible; 
-}
-
-&__logoImage {
-  position: absolute;
-  left: 5%;
-  top: 55%;
-  transform-origin: left center;
-  height: 104px;
-  will-change: transform;
-
-  @media screen and (max-width: $breakpoint-lmd) {
-    position: static;
-    transform: none;
-    height: 60px;
-  }
-}
-
-    &__title {
+    &__logo {
+        position: relative;
         display: flex;
-        text-align: left;
-        flex-wrap: wrap;
-        color: $primary-light;
-        margin: 0;
-        padding-top: $spacing-md;
-        line-height: 1;
-
-        @media screen and (max-width: $breakpoint-lg) {
-            flex-direction: column;
-        }
-
+        align-items: center;
+        justify-content: flex-start;
+        height: 84px;
+        overflow: visible;
+        
         @media screen and (max-width: $breakpoint-lmd) {
-            flex-direction: row;
-            font-size: $font-size-3xl;
-            padding-top: $spacing-sm;
+            height: 60px;
         }
     }
 
-    &__titleAccent {
-        color: $accent-dark-purple;
+    &__logoImage {
+        position: absolute;
+        left: 5%;
+        top: 55%;
+        transform-origin: left center;
+        height: 104px;
+        will-change: transform;
+
+        @media screen and (max-width: $breakpoint-lmd) {
+            position: static;
+            transform: none;
+            height: 60px;
+        }
     }
 
     &__navContainer {
@@ -124,6 +105,18 @@
 
             &::after {
                 width: 100%;
+            }
+        }
+
+        [data-theme="light"] & {
+            color: light.$bg-primary !important;
+
+            @include hover-only {
+                color: $primary-light !important;
+            }
+
+            &--active{
+                 color: $primary-light !important;
             }
         }
     }
@@ -237,6 +230,13 @@
         @include hover-only {
             background-color: $accent-dark-purple;
         }
+
+        @media screen and (max-width: $breakpoint-lmd){
+            padding-top: $spacing-sm;
+            span{
+                top: -5px
+            }
+        }
     }
 
     &__profileWrapper {
@@ -262,6 +262,10 @@
     font-family: $text-primary;
     font-size: $font-size-base;
     font-weight: 400;
+
+    [data-theme="light"] & {
+        background-color: light.$bg-primary;
+    }
 
     &__user {
         display: flex;
@@ -289,12 +293,20 @@
         padding: 10px 12px;
         height: 44px;
         border-radius: $border-radius-md;
-        transition: all $transition-fast;
+        transition: background-color $transition-fast, color 0s !important;
 
         &:hover {
             background-color: $accent-purple;
             text-decoration: none;
             color: $text-primary ;
+        }
+
+        [data-theme="light"] & {
+             color: light.$text-primary !important;
+
+             &:hover{
+                color: $text-primary !important;
+             }
         }
     }
 
@@ -310,11 +322,28 @@
         gap: 8px;
         padding: 10px 12px;
         height: 44px;
-        transition: all $transition-fast;
+        transition: background-color $transition-fast, color 0s !important;
 
         &:hover {
             background-color: $accent-purple;
             opacity: 1 !important;
+        }
+
+        [data-theme="light"] & {
+            color: light.$text-primary !important;
+
+            @include hover-only {
+                color: $text-primary !important;
+
+                .profileDropdown__themeLabel {
+                    color: $text-primary !important;
+                }
+
+                .profileDropdown__themeMode {
+                    color: $text-primary !important;
+                }
+
+            }
         }
     }
 
@@ -333,6 +362,7 @@
     &__themeLabel {
         color: $text-primary;
         margin: 0;
+        transition: color $transition-fast;
     }
 
     &__themeMode {
@@ -341,5 +371,6 @@
         gap: 6px;
         color: $text-primary;
         margin: 0;
+        transition: color $transition-fast;
     }
 }

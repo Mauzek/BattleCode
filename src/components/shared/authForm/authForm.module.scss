@@ -1,4 +1,5 @@
 @use '@styles/_variables' as *;
+@use '@styles/_variables.light' as light;
 
 .auth {
     display: flex;
@@ -7,6 +8,7 @@
     min-height: 100vh;
     overflow: hidden;
     position: relative;
+    background-color: $bg-primary;
 
     &__logo {
         position: absolute;
@@ -55,6 +57,7 @@
             position: absolute;
             content: url("/greenLine.svg");
         }
+
     }
 
     &__info {
@@ -62,17 +65,27 @@
         flex-direction: column;
         gap: $spacing-sm;
         text-align: left;
+
     }
 
     &__title {
         color: #fff;
         font-size: $font-size-base;
-        margin-bottom: 0
+        margin-bottom: 0;
+
+        [data-theme="light"] & {
+            color: $text-primary !important;
+        }
+
     }
 
     &__text {
         font-size: $font-size-sm;
         margin: 0;
+
+        [data-theme="light"] & {
+            color: $text-primary !important;
+        }
 
     }
 
@@ -141,7 +154,7 @@
 
         &--trasperent {
             background-color: transparent;
-            color: $primary-light
+            color: $primary-light !important
         }
     }
 
