@@ -1,7 +1,6 @@
 import { AuthForm } from "@/components";
 import "../../index.scss";
 import { useEffect } from "react";
-import { LanguageSwitcher } from "@/components/languageSwitcher/languageSwitcher";
 
 export const AuthPage = () => {
   useEffect(() => {
@@ -13,8 +12,6 @@ export const AuthPage = () => {
 
   return (
     <main className="auth">
-      {/**Убрать для отладки просто  */}
-      <LanguageSwitcher />
       <AuthForm />
     </main>
   );

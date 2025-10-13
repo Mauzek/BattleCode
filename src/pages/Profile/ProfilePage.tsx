@@ -1,14 +1,15 @@
 import { SectionTabs } from "@/components";
+import { useTranslation } from "@/hooks/localeHooks/useTranslation";
 import { Outlet, useParams } from "react-router-dom";
 
 const ProfilePage = () => {
   const { username } = useParams<{ username: string }>();
-
+  const {t } = useTranslation();
   const profileTabs = [
-    { label: "About a participant", path: `` },
-    { label: "Badges", path: `badges` },
-    { label: "Edit profile", path: `edit` },
-    { label: "Settings", path: `settings` },
+    { label: t("About a participant"), path: `` },
+    { label: t("Badges"), path: `badges` },
+    { label: t("Edit profile"), path: `edit` },
+    { label: t("Settings"), path: `settings` },
   ];
 
   return (
