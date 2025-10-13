@@ -1,7 +1,7 @@
 import { useTheme } from "@/hooks";
 import type { RootState } from "@/store";
 import { setLanguage } from "@/store/slices/localeSlice";
-import { LuMoon, LuSun } from "react-icons/lu";
+import { LuLanguages, LuMoon, LuSun } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfileSettings = () => {
@@ -21,18 +21,19 @@ const ProfileSettings = () => {
       <button onClick={toggleTheme}>
         {theme === "light" ? (
           <>
-            <LuSun /> Light mode{" "}
+            <LuSun /> Light
           </>
         ) : (
           <>
-            <LuMoon /> Dark mode
+            <LuMoon /> Dark
           </>
         )}
       </button>
       <div style={{marginTop:50}}>
 
       <button onClick={toggleLanguage}>
-        {language === "ru" ? "Русский язык" : "English language"}
+        <LuLanguages />
+        {language === "ru" ? "РУ" : "EN"}
       </button>
       </div>
     </div>

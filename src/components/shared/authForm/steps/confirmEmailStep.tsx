@@ -2,6 +2,7 @@ import { useFormContext } from "react-hook-form";
 import type { ConfirmCodeFormData } from "@/schemas";
 import { Input } from "@/components/ui";
 import styles from "../authForm.module.scss";
+import { useTranslation } from "@/hooks";
 
 type ConfirmEmailStepProps = {
   loading: boolean;
@@ -19,13 +20,14 @@ export const ConfirmEmailStep = ({
   const { register, handleSubmit, formState } =
     useFormContext<ConfirmCodeFormData>();
   const { errors } = formState;
+  const { t } = useTranslation();
 
   return (
     <>
       <div className={styles.auth__info}>
-        <h1 className={styles.auth__title}>Confirm Your Email</h1>
+        <h1 className={styles.auth__title}>{t("Confirm Your Email")}</h1>
         <p className={styles.auth__text}>
-          We sent a 6-digit code to <strong>{email}</strong>
+          {t("We sent a 6-digit code to")} <strong>{email}</strong>
         </p>
       </div>
       <form
@@ -50,9 +52,13 @@ export const ConfirmEmailStep = ({
               errors.code ? styles["auth__input--error"] : ""
             }`}
           />
-          <span className={styles.auth__floatingLabel}>Код подтверждения</span>
+          <span className={styles.auth__floatingLabel}>
+            {t("Confirmation code")}
+          </span>
           {errors.code && (
-            <span className={styles.auth__error}>{errors.code.message}</span>
+            <span className={styles.auth__error}>
+              {t(errors.code.message ?? "")}
+            </span>
           )}
         </label>
 
@@ -62,14 +68,14 @@ export const ConfirmEmailStep = ({
             className={styles.auth__button}
             disabled={loading}
           >
-            Verify
+            {t("Send")}
           </button>
           <button
             type="button"
             className={`${styles.auth__button} ${styles["auth__button--trasperent"]}`}
             onClick={onBack}
           >
-            Back
+            {t("Back")}
           </button>
         </div>
       </form>

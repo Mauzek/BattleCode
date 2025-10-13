@@ -1,4 +1,5 @@
 import { SectionTabs } from "@/components";
+import { useTranslation } from "@/hooks";
 import { Outlet, useParams } from "react-router-dom";
 
 const TaskPage = () => {
@@ -6,15 +7,16 @@ const TaskPage = () => {
     courseId: string;
     taskId: string;
   }>();
+  const {t} = useTranslation();
 
   const taskTabs = [
-    { label: "Task", path: `` },
-    { label: "Checks", path: `checks` },
+    { label: t("Task"), path: `` },
+    { label: t("Checks"), path: `checks` },
   ];
 
   return (
     <main className="task-page">
-      <SectionTabs tabs={taskTabs} label={`Task ${taskId}`} />
+      <SectionTabs tabs={taskTabs} label={`${t("Task")} ${taskId}`} />
       <section className="content">
         <Outlet />
       </section>

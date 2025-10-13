@@ -262,6 +262,7 @@
     font-family: $text-primary;
     font-size: $font-size-base;
     font-weight: 400;
+    transition: background-color $transition-fast;
 
     [data-theme="light"] & {
         background-color: light.$bg-primary;

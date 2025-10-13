@@ -3,15 +3,17 @@ import styles from "./header.module.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { ModalWrapper } from "@/components";
+import { useTranslation } from "@/hooks";
 
 export const NotifButton = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {t} = useTranslation();
   return (
     <>
       <button
         onClick={() => setIsMenuOpen(true)}
         className={`${styles.header__action} ${styles["header__action--notification"]}`}
-        data-label="Уведомления"
+        data-label={t("Notifications")}
       >
         <IoNotificationsOutline color="#fff" size={24} />
         <span>81</span>
@@ -19,7 +21,7 @@ export const NotifButton = () => {
       <ModalWrapper
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        title="Notifications"
+        title={t("Notifications")}
         variant="side"
       >
         <nav>
