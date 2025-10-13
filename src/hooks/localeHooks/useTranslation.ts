@@ -7,10 +7,7 @@ import type { RootState } from '@/store';
 // Статически импортируем все файлы переводов
 import ruTranslations from '@/locales/ru.json';
 import enTranslations from '@/locales/en.json';
-
-interface Translations {
-  [key: string]: string;
-}
+import type { Translations } from '@/types/locales';
 
 // Объект со всеми переводами
 const translationFiles: Record<string, Translations> = {

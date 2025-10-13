@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLanguage, resetToSystemLanguage } from '@/store/slices/localeSlice';
 import { useTranslation } from '@/hooks/localeHooks/useTranslation';
 import type { RootState } from '@/store';
-import styles from './LanguageSwitcher.module.scss';
+import styles from './languageSwitcher.module.scss';
 
 export const LanguageSwitcher: React.FC = () => {
   const dispatch = useDispatch();
