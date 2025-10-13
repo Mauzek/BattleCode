@@ -1,5 +1,5 @@
 @use "@styles/_variables" as *;
-
+@use "@styles/_variables.light" as light;
 
 *,
 *::before,
@@ -21,6 +21,25 @@
 html {
   scroll-behavior: smooth;
   background-color: $bg-primary;
+}
+
+[data-theme="light"] {
+  body {
+    background-color: light.$bg-primary;
+    color: light.$text-primary;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  button {
+    color: light.$text-primary;
+    transition: color $transition-fast;
+  }
 }
 
 body {
@@ -143,7 +162,7 @@ main {
   align-items: center;
 }
 
-.auth{
+.auth {
   align-items: stretch;
 }
 
@@ -164,7 +183,7 @@ main {
 }
 
 .grecaptcha-badge {
-  display: none !important; 
+  display: none !important;
 }
 
 .auth-visible .grecaptcha-badge {

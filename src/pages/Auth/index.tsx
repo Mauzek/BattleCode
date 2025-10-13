@@ -3,7 +3,6 @@ import "../../index.scss";
 import { useEffect } from "react";
 
 export const AuthPage = () => {
-  
   useEffect(() => {
     document.body.classList.add("auth-visible");
     return () => {

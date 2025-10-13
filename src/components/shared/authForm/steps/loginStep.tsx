@@ -3,6 +3,7 @@ import type { LoginFormData } from "@/schemas";
 import { Input } from "@/components/ui";
 import styles from "../authForm.module.scss";
 import { env } from "@/config/env";
+import { useTranslation } from "@/hooks/localeHooks/useTranslation";
 
 type LoginStepProps = {
   loading: boolean;
@@ -19,6 +20,7 @@ export const LoginStep = ({
 }: LoginStepProps) => {
   const { register, handleSubmit, formState } = useFormContext<LoginFormData>();
   const { errors } = formState;
+  const {t} = useTranslation();
 
   const handleLogin = async (data: LoginFormData) => {
     if (!window.grecaptcha?.enterprise) {
@@ -38,7 +40,7 @@ export const LoginStep = ({
       <div className={styles.auth__info}>
         <h1 className={styles.auth__title}>Welcome to BattleCode</h1>
         <p className={styles.auth__text}>
-          Please enter your login and password
+{t('Please enter your login and password')}
         </p>
       </div>
 
