@@ -1,0 +1,116 @@
+@use "@styles/_variables" as *;
+@use "@styles/_variables.light" as light;
+
+.w-md-editor-toolbar,
+.w-md-editor {
+  background-color: $bg-secondary !important;
+
+  [data-theme="light"] & {
+    background-color: light.$bg-light !important
+  }
+}
+
+.w-md-editor {
+  border-radius: $border-radius-lg !important;
+  box-shadow: none !important;
+}
+
+.w-md-editor-preview {
+  box-shadow: inset 1px 0 0 0 $bg-light !important;
+}
+
+.code-line {
+  [data-theme="light"] & {
+    color: light.$text-primary !important;
+  }
+}
+
+.w-md-editor-toolbar {
+  border-radius: $border-radius-lg $border-radius-lg 0 0 !important;
+
+  li.active>button {
+    color: $accent-green !important;
+  }
+
+  [data-theme="light"] & {
+    li>button {
+      color: light.$text-primary !important;
+    }
+
+    li>button:hover {
+      color: light.$text-primary !important;
+      background-color: $accent-green !important;
+    }
+
+    li.active>button {
+      background-color: $accent-green !important;
+    }
+  }
+
+  li>button:hover {
+    color: $accent-green !important;
+  }
+}
+
+.w-md-editor-toolbar-divider {
+  background-color: $accent-green !important;
+
+  [data-theme="light"] & {
+    background-color: $accent-purple !important
+  }
+}
+
+.wmde-markdown {
+  background-color: transparent !important;
+  font-family: $font-primary !important;
+    h1{
+        border: none !important;
+    }
+  table {
+    th, td {
+      border-color: #111 !important ;
+    }
+      tr {
+        color: $text-primary !important;
+        background-color: $bg-light!important;
+      }
+      td {
+        color: $text-primary !important;
+        background-color: $bg-secondary !important;
+      }
+    }
+
+
+  [data-theme="light"] & {
+    table {
+      tr {
+        color: light.$text-primary !important;
+        background-color: light.$bg-light!important;
+      }
+      td {
+        color: light.$text-primary !important;
+        background-color: light.$bg-primary !important;
+      }
+    }
+  }
+
+  pre {
+    background-color: $bg-primary !important;
+
+    [data-theme="light"] & {
+      background-color: light.$bg-primary !important
+    }
+  }
+
+  h2 {
+    border: none !important;
+  }
+
+  img {
+    background-color: transparent !important;
+  }
+
+  blockquote {
+    border-color: $accent-dark-purple !important;
+  }
+}
