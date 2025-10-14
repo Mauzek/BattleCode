@@ -1,10 +1,11 @@
-import { ModalWrapper, Skeleton } from "@/components";
+import { ModalWrapper, MdViewer, MdEditor, Skeleton } from "@/components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./home.module.scss";
 
 export const HomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mdContent, setMdContent] = useState<string>("## Биби боба");
 
   return (
     <main style={{ height: "2000px" }}>
@@ -24,17 +25,24 @@ export const HomePage = () => {
       </div>
 
       <section className="content">
-        <button onClick={() => setIsMenuOpen(true)}>Открыть меню</button>
-        <Skeleton width="100%" height={100} borderRadius={16} />
+        <Skeleton width="100%" height={30} borderRadius={16} />
+        <button
+          onClick={() => setIsMenuOpen(true)}
+          style={{ marginBottom: "16px" }}
+        >
+          Открыть меню
+        </button>
+        <MdEditor value={mdContent} onChange={setMdContent} height={250} />
+        <MdViewer content={mdContent} />
       </section>
 
       <ModalWrapper
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        title="Test"
+        title="Навигация"
         variant="center"
       >
-        <nav>
+        <nav style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           <Link to="/">Главная</Link>
           <Link to="/courses">Курсы</Link>
           <Link to="/user/boby">Профиль</Link>

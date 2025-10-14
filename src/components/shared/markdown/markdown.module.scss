@@ -1,0 +1,99 @@
+@use "@styles/_variables" as *;
+@use "@styles/_variables.light" as light;
+
+.editorContainer {
+    width: 100%;
+    text-align: left;
+    border-radius: $border-radius-lg;
+}
+
+.viewerContainer {
+    width: 100%;
+    text-align: left;
+    padding: $spacing-md;
+    background-color: $bg-secondary;
+    border-radius: $border-radius-lg;
+
+    [data-theme="light"] & {
+        background-color: light.$bg-light;
+    }
+
+    ul,
+    ol {
+        padding-left: 1.5em;
+        margin: 0.8em 0;
+    }
+
+    blockquote {
+        margin: 0.8em 0;
+        padding-left: 1em;
+        border-left: 3px solid $accent-purple;
+    }
+
+    code {
+        color: $accent-green ;
+        [data-theme="light"] & {
+            color: light.$text-primary;
+        }
+    }
+
+    pre {
+        background-color: $bg-primary !important;
+        border-radius: 6px;
+        padding: 12px !important;
+        overflow-x: auto;
+        margin: 1em 0;
+        [data-theme="light"] & {
+            background-color: light.$bg-primary !important;
+        }
+    }
+
+    pre code {
+        background: none !important;
+        padding: 0 !important;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1em 0;
+        border: 1px solid #111;
+
+        th,
+        td {
+            border: 1px solid #111;
+            padding: 8px 12px;
+            text-align: left;
+            color: $text-primary;
+        }
+
+        th {
+            background-color: $bg-light;
+            font-weight: 600;
+        }
+
+        td {
+            background-color: $bg-secondary;
+        }
+    }
+
+    [data-theme="light"] & {
+        table {
+            th{
+                color: light.$text-primary !important;
+                background-color: light.$bg-light !important;
+            }
+            tr {
+                color: light.$text-primary !important;
+                background-color: light.$bg-light !important;
+            }
+
+            td {
+                color: light.$text-primary !important;
+                background-color: light.$bg-primary !important;
+            }
+        }
+    }
+}
