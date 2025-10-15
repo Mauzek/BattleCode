@@ -1,4 +1,4 @@
-import { ModalWrapper, MdViewer, MdEditor, Skeleton } from "@/components";
+import { ModalWrapper, MdViewer, MdEditor, Skeleton, HomeDetails } from "@/components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./home.module.scss";
@@ -25,7 +25,7 @@ export const HomePage = () => {
       </div>
 
       <section className="content">
-        <Skeleton width="100%" height={30} borderRadius={16} />
+        <HomeDetails/>
         <button
           onClick={() => setIsMenuOpen(true)}
           style={{ marginBottom: "16px" }}

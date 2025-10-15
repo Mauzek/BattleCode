@@ -172,13 +172,14 @@ main {
   gap: $spacing-lg;
   max-width: 1260px;
   width: 100%;
+  padding-top: $spacing-lg;
 
   @media screen and (max-width: 1260px) {
-    padding: 0 $spacing-md;
+    padding: $spacing-md;
   }
 
   @media screen and (max-width: $breakpoint-sm) {
-    padding: 0 $spacing-sm;
+    padding: $spacing-md $spacing-sm;
   }
 }
 
