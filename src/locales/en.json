@@ -79,6 +79,21 @@
   "Dark mode": "Dark mode",
   "Log out": "Log out",
 
+  "Nearest deadline": "Nearest deadline",
+  "Achievement progress": "Achievement progress",
+  "Next achievement": "Next achievement",
+  "Courses progress": "Courses progress",
+  "Progress":"Progress",
+  "of": "of",
+
+  "not started": "not started",
+  "in progress": "in progress",
+  "completed": "completed",
+
+  "XP Leaderboard": "XP Leaderboard",
+  "Courses Leaderboard": "Courses Leaderboard",
+  "Achievements Leaderboard": "Achievements Leaderboard",
+
   "Next": "Next",
   "Back": "Back",
   "Done": "Done",
