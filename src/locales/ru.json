@@ -79,6 +79,21 @@
   "Dark": "Тёмная",
   "Log out": "Выйти",
 
+  "Nearest deadline": "Ближайший дедлайн",
+  "Achievement progress": "Прогресс достижений",
+  "Next achievement": "Следующее достижение",
+  "Courses progress": "Прогресс курсов",
+  "Progress":"Прогресс",
+  "of": "из",
+
+  "not started": "не начато",
+  "in progress": "в процессе",
+  "completed": "завершенный",
+
+  "XP Leaderboard": "Рейтинг по XP",
+  "Courses Leaderboard": "Рейтинг по курсам",
+  "Achievements Leaderboard": "Рейтинг по достижениям",
+
   "Next": "Далее",
   "Back": "Назад",
   "Done": "Готово",

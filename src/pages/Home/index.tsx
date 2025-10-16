@@ -1,11 +1,21 @@
-import { ModalWrapper, MdViewer, MdEditor, Skeleton, HomeDetails } from "@/components";
-import { useState } from "react";
+import { ModalWrapper, MdViewer, MdEditor, Skeleton, HomeDetails, HomeDetailsSkelenot } from "@/components";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./home.module.scss";
 
 export const HomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mdContent, setMdContent] = useState<string>("## Биби боба");
+  const [isLoading, setIsLoading] = useState(true); 
+
+  useEffect(() => {
+    const loadHomeDetails = async () => {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setIsLoading(false);
+    };
+
+    loadHomeDetails();
+  }, []);
 
   return (
     <main style={{ height: "2000px" }}>
@@ -25,7 +35,8 @@ export const HomePage = () => {
       </div>
 
       <section className="content">
-        <HomeDetails/>
+        {isLoading ? <HomeDetailsSkelenot /> : <HomeDetails />}
+
         <button
           onClick={() => setIsMenuOpen(true)}
           style={{ marginBottom: "16px" }}

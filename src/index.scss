@@ -1,6 +1,6 @@
 @use "@styles/_variables" as *;
 @use "@styles/_variables.light" as light;
-
+@use "@styles/_mixins" as *;
 *,
 *::before,
 *::after {
@@ -103,7 +103,7 @@ a {
   text-decoration: none;
   transition: color $transition-fast;
 
-  &:hover {
+  @include hover-only {
     color: $primary-light;
   }
 }

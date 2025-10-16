@@ -1,35 +1,57 @@
+import { Link } from "react-router-dom";
 import styles from "./homeDetails.module.scss";
+import { useTranslation } from "@/hooks";
 
-export const Course = () => {
+export interface CourseProps {
+  id: string | number;
+  title: string;
+  description: string;
+  status: "not started" | "in progress" | "completed" | string;
+  progress: number;
+  tags: string[];
+  slug?: string;
+}
+
+export const Course = ({
+  id,
+  title,
+  description,
+  status,
+  progress,
+  tags,
+  slug = String(id),
+}: CourseProps) => {
+  const { t } = useTranslation();
   return (
-    <article className={styles.course}>
+    <Link to={`/courses/${slug}`} className={styles.course}>
       <div className={styles.course__content}>
         <div className={styles.course__header}>
-          <h2 className={styles.course__title}>Loops in Programming</h2>
-          <span className={styles.course__status}>In progress</span>
+          <h2 className={styles.course__title}>{title}</h2>
+          <span className={styles.course__status}>{t(status)}</span>
         </div>
 
-        <p className={styles.course__description}>
-          Master the fundamentals of loops: for, while, and do-while. Learn to
-          avoid infinite loops and optimize iterations.
-        </p>
+        <p className={styles.course__description}>{description}</p>
 
         <div className={styles.course__tags}>
-          <span className={styles.course__tag}>JavaScript</span>
-          <span className={styles.course__tag}>Beginner</span>
-          <span className={styles.course__tag}>12 lessons</span>
+          {tags.map((tag, index) => (
+            <span key={index} className={styles.course__tag}>
+              {tag}
+            </span>
+          ))}
         </div>
 
         <div className={styles.course__progress}>
           <div className={styles.course__progressBar}>
             <div
               className={styles.course__progressFill}
-              style={{ width: "45%" }}
+              style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
             />
           </div>
-          <span className={styles.course__progressText}>45% completed</span>
+          <span className={styles.course__progressText}>
+            {progress}% {t("completed")}
+          </span>
         </div>
       </div>
-    </article>
+    </Link>
   );
 };

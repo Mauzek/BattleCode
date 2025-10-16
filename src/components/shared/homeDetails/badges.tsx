@@ -4,34 +4,75 @@ import { Link } from "react-router-dom";
 import styles from "./homeDetails.module.scss";
 import { useState } from "react";
 import { ModalWrapper } from "../modalWrapper";
+import { useTranslation } from "@/hooks";
 
-export const Badges = () => {
+interface BadgesProps {
+  nearestDeadline?: string; 
+  achievementProgress?: {
+    current: number;
+    total: number;
+  };
+  nextAchievement?: {
+    name: string;
+    current: number;
+    total: number;
+    description: string;
+  };
+  coursesProgress?: {
+    current: number;
+    total: number;
+  };
+}
+
+export const Badges = ({
+  nearestDeadline = "No deadlines",
+  achievementProgress = { current: 0, total: 100 },
+  nextAchievement = {
+    name: "—",
+    current: 0,
+    total: 1,
+    description: "Complete more tasks to unlock the next achievement."
+  },
+  coursesProgress = { current: 0, total: 50 }
+}: BadgesProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleModal = () => setIsOpen((prev) => !prev);
 
+  const calcPercent = (current: number, total: number): number => {
+    if (total <= 0) return 0;
+    return Math.round((current / total) * 100);
+  };
+
+  const {t} = useTranslation();
+
   return (
     <div className={styles.homeDetails__badgesContainer}>
-
       <Link to="calendar" className={`${styles.badge} ${styles.badge_type_deadline}`}>
         <div className={styles.badge__content}>
-          <h3 className={styles.badge__title}>Nearest deadline</h3>
+          <h3 className={styles.badge__title}>{t("Nearest deadline")}</h3>
           <p className={styles.badge__value}>
-            <LuTimer /> <span className={styles.badge__date}>30.10.2025</span>
+            <LuTimer /> <span className={styles.badge__date}>{nearestDeadline}</span>
           </p>
         </div>
       </Link>
 
       <Link to="user/boby/badges" className={`${styles.badge} ${styles.badge_type_achievement}`}>
         <div className={styles.badge__content}>
-          <h3 className={styles.badge__title}>Achievement progress</h3>
+          <h3 className={styles.badge__title}>{t("Achievement progress")}</h3>
           <p className={styles.badge__value}>
-            <GrAchievement /> <span>62 / 120</span>
+            <GrAchievement />{" "}
+            <span>
+              {achievementProgress.current} / {achievementProgress.total}
+            </span>
           </p>
-          <div className={styles.badge__xpBar} data-percent={`${Math.round((62 / 120) * 100)}%`}>
+          <div
+            className={styles.badge__xpBar}
+            data-percent={`${calcPercent(achievementProgress.current, achievementProgress.total)}%`}
+          >
             <div
               className={styles.badge__xpFill}
-              style={{ width: `${Math.round((62 / 120) * 100)}%` }}
+              style={{ width: `${calcPercent(achievementProgress.current, achievementProgress.total)}%` }}
             />
           </div>
         </div>
@@ -39,14 +80,17 @@ export const Badges = () => {
 
       <article className={`${styles.badge} ${styles.badge_type_next}`} onClick={toggleModal}>
         <div className={styles.badge__content}>
-          <h3 className={styles.badge__title}>Next achievement</h3>
+          <h3 className={styles.badge__title}>{t("Next achievement")}</h3>
           <p className={styles.badge__value}>
-            <LuStar /> Warrior
+            <LuStar /> {nextAchievement.name}
           </p>
-          <div className={styles.badge__xpBar} data-percent={`${Math.round((1 / 3) * 100)}%`}>
+          <div
+            className={styles.badge__xpBar}
+            data-percent={`${calcPercent(nextAchievement.current, nextAchievement.total)}%`}
+          >
             <div
               className={styles.badge__xpFill}
-              style={{ width: `${Math.round((1 / 3) * 100)}%` }}
+              style={{ width: `${calcPercent(nextAchievement.current, nextAchievement.total)}%` }}
             />
           </div>
         </div>
@@ -55,14 +99,20 @@ export const Badges = () => {
 
       <Link to="courses" className={`${styles.badge} ${styles.badge_type_courses}`}>
         <div className={styles.badge__content}>
-          <h3 className={styles.badge__title}>Courses progress</h3>
+          <h3 className={styles.badge__title}>{t("Courses progress")}</h3>
           <p className={styles.badge__value}>
-            <LuListCheck /> <span>7 / 86</span>
+            <LuListCheck />{" "}
+            <span>
+              {coursesProgress.current} / {coursesProgress.total}
+            </span>
           </p>
-          <div className={styles.badge__xpBar} data-percent={`${Math.round((7 / 86) * 100)}%`}>
+          <div
+            className={styles.badge__xpBar}
+            data-percent={`${calcPercent(coursesProgress.current, coursesProgress.total)}%`}
+          >
             <div
               className={styles.badge__xpFill}
-              style={{ width: `${Math.round((7 / 86) * 100)}%` }}
+              style={{ width: `${calcPercent(coursesProgress.current, coursesProgress.total)}%` }}
             />
           </div>
         </div>
@@ -71,12 +121,13 @@ export const Badges = () => {
       <ModalWrapper
         isOpen={isOpen}
         onClose={toggleModal}
-        title="Next achievement"
+        title={t("Next achievement")}
         variant="center"
       >
-        <p>Инфа про то как получить ачивку.</p>
-        <p>Выиграть 3 боя против бомжей!</p>
-        <p>Прогресс: 1 из 3</p>
+        <p>{nextAchievement.description}</p>
+        <p>
+          {t("Progress")}: {nextAchievement.current} {t("of")} {nextAchievement.total}
+        </p>
       </ModalWrapper>
     </div>
   );

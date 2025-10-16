@@ -1,60 +1,54 @@
+import { Link } from "react-router-dom";
 import styles from "./homeDetails.module.scss";
+import { useTranslation } from "@/hooks";
 
 export interface RatingUser {
   id: string;
   name: string;
-  avatar: string;
-  xp: number;
-  position: number;
-  isCurrentUser?: boolean;
+  avatar: string | null;
+  value: number;
 }
 
 export interface RatingProps {
   title: string;
+  unit: string;
   topUsers: RatingUser[];
   currentUser?: {
     id: string;
     name: string;
-    xp: number;
+    avatar: string | null;
+    value: number;
     position: number;
   };
 }
 
-export const Rating = ({ title, topUsers, currentUser }: RatingProps) => {
-  const isCurrentUserInTop = currentUser
-    ? topUsers.some((user) => user.id === currentUser.id)
-    : false;
-
+export const Rating = ({ title, unit, topUsers, currentUser }: RatingProps) => {
+  const { t } = useTranslation();
   return (
     <div className={styles.rating}>
-      <h2 className={styles.rating__title}>{title}</h2>
+      <h2 className={styles.rating__title}>{t(title)}</h2>
 
       <div className={styles.rating__list}>
-        {topUsers.map((user) => (
-          <div
+        {topUsers.map((user, index) => (
+          <Link
+            to={`user/${user.name}`}
             key={user.id}
             className={`${styles.rating__item} ${
               currentUser?.id === user.id ? styles.rating__item_current : ""
             }`}
           >
-            <span className={styles.rating__position}>#{user.position}</span>
+            <span className={styles.rating__position}>#{index + 1}</span>
             <div className={styles.rating__avatar}>
-              {user.avatar ? (
-                <img src={user.avatar} alt={user.name} />
-              ) : (
-                <span>{user.name.charAt(0).toUpperCase()}</span>
-              )}
+              <img src={user.avatar ?? "/noavatar.png"} alt={user.name} />
             </div>
-            <span className={styles.rating__name}>
-              {currentUser?.id === user.id ? "You" : user.name}
-            </span>
+            <span className={styles.rating__name}>{user.name}</span>
             <span className={styles.rating__xp}>
-              {user.xp.toLocaleString()} XP
+              {user.value.toLocaleString()} {unit}
             </span>
-          </div>
+          </Link>
         ))}
 
-        {currentUser && !isCurrentUserInTop && (
+        {currentUser && (
           <>
             <div className={styles.rating__divider} />
             <div
@@ -64,11 +58,11 @@ export const Rating = ({ title, topUsers, currentUser }: RatingProps) => {
                 #{currentUser.position}
               </span>
               <div className={styles.rating__avatar}>
-                <span>Y</span>
+                <img src={currentUser.avatar ?? "/noavatar.png"} alt="You" />
               </div>
               <span className={styles.rating__name}>You</span>
               <span className={styles.rating__xp}>
-                {currentUser.xp.toLocaleString()} XP
+                {currentUser.value.toLocaleString()} {unit}
               </span>
             </div>
           </>
