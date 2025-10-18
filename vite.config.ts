@@ -22,31 +22,30 @@ export default defineConfig({
       "@utils": "/src/utils",
     },
   },
-  build: {
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            const chunks = {
-              vendor: ["react", "react-dom"],
-              router: ["react-router-dom"],
-              redux: ["@reduxjs/toolkit", "react-redux"],
-            };
+build: {
+  sourcemap: false,
+  rollupOptions: {
+    output: {
+      manualChunks(id) {
+        if (id.includes('node_modules')) {
 
-            for (const [chunkName, modules] of Object.entries(chunks)) {
-              if (
-                modules.some((module) => id.includes(`node_modules/${module}`))
-              ) {
-                return chunkName;
-              }
-            }
-            return "vendor";
-          }
-        },
+          if (id.includes('monaco-editor')) return 'monaco';
+          if (id.includes('highlight.js')) return 'highlight';
+          if (id.includes('gsap')) return 'gsap';
+          if (id.includes('qrcode.react')) return 'qrcode';
+          if (id.includes('react-markdown')) return 'markdown';
+          if (id.includes('react-hook-form')) return 'forms';
+
+          if (id.includes('react-dom') || id.includes('react')) return 'react';
+          if (id.includes('react-router-dom')) return 'router';
+          if (id.includes('@reduxjs') || id.includes('react-redux')) return 'redux';
+
+          return 'vendor';
+        }
       },
     },
   },
+},
   server: {
     port: 3000,
     host: true,
