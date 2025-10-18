@@ -24,9 +24,17 @@
         }
     }
 
+
     @include hover-only {
         background-color: $bg-light;
-        outline-color: $accent-green
+        outline-color: $accent-green;
+
+        [data-theme="dark"] & {
+            .course__tag {
+                background-color: rgba($accent-green, 0.1);
+                color: $accent-green;
+            }
+        }
     }
 
     @media (max-width: $breakpoint-md) {
@@ -53,11 +61,12 @@
         font-size: $font-size-lg;
         font-weight: 700;
         color: $text-primary;
-        line-height: $font-size-sm;
+        line-height: $font-size-2xl;
+        text-align: left;
     }
 
     &__status {
-        background-color: rgba(0, 255, 157, 0.15);
+        background-color: rgba($accent-green, 0.1);
         margin: 0;
         color: $accent-green;
         padding: $spacing-xs $spacing-md;
@@ -66,6 +75,16 @@
         font-size: $font-size-xs;
         font-weight: 600;
         text-transform: uppercase;
+        text-wrap: nowrap;
+
+        [data-theme="light"] & {
+            background-color: rgba($accent-green, 0.5);
+            color: light.$text-primary;
+        }
+
+        @media screen and (max-width: $breakpoint-xs) {
+            font-size: 10px;
+        }
     }
 
     &__description {
@@ -90,11 +109,13 @@
 
     &__tag {
         background-color: $bg-light;
+        filter: contrast();
         font-size: $font-size-xs;
         padding: $spacing-xs $spacing-md;
         border-radius: $border-radius-lg;
         color: $text-secondary-2;
         white-space: nowrap;
+        transition: all $transition-fast;
 
         [data-theme="light"] & {
             background-color: rgba($bg-primary, 0.05);
