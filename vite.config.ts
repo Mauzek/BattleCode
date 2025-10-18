@@ -22,27 +22,17 @@ export default defineConfig({
       "@utils": "/src/utils",
     },
   },
-  build: {
+build: {
     sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes("node_modules")) {
-            const chunks = {
-              vendor: ["react", "react-dom"],
-              router: ["react-router-dom"],
-              redux: ["@reduxjs/toolkit", "react-redux"],
-            };
-
-            for (const [chunkName, modules] of Object.entries(chunks)) {
-              if (
-                modules.some((module) => id.includes(`node_modules/${module}`))
-              ) {
-                return chunkName;
-              }
-            }
-            return "vendor";
+          if (id.includes('node_modules')) {
+            if (id.includes('react-dom') || id.includes('react/')) return 'react';
+            if (id.includes('react-router-dom')) return 'router';
+            if (id.includes('@reduxjs') || id.includes('react-redux')) return 'redux';
           }
+          return null; 
         },
       },
     },

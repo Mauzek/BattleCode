@@ -1,18 +1,9 @@
 import { Link } from "react-router-dom";
-import styles from "./homeDetails.module.scss";
 import { useTranslation } from "@/hooks";
+import type { CourseCardProps } from "./types";
+import styles from "./courseCard.module.scss";
 
-export interface CourseProps {
-  id: string | number;
-  title: string;
-  description: string;
-  status: "not started" | "in progress" | "completed" | string;
-  progress: number;
-  tags: string[];
-  slug?: string;
-}
-
-export const Course = ({
+export const CourseCard = ({
   id,
   title,
   description,
@@ -20,7 +11,7 @@ export const Course = ({
   progress,
   tags,
   slug = String(id),
-}: CourseProps) => {
+}: CourseCardProps) => {
   const { t } = useTranslation();
   return (
     <Link to={`/courses/${slug}`} className={styles.course}>

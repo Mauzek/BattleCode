@@ -1,0 +1,11 @@
+@use "@styles/_variables" as *;
+
+.coursesDetails{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md;
+
+    @media screen and (max-width: $breakpoint-md) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
