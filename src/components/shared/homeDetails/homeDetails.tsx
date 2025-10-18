@@ -1,7 +1,7 @@
-import { Course } from "./course";
 import { Rating } from "./rating";
 import { Badges } from "./badges";
 import styles from "./homeDetails.module.scss";
+import { CourseCard } from "../courseCard";
 
 const xpTopUsers = [
   { id: "me", name: "boby", avatar: null, value: 12450 },
@@ -105,7 +105,8 @@ export const HomeDetails = () => {
         }}
         coursesProgress={{ current: 7, total: 86 }}
       />
-      <Course
+
+      <CourseCard
         id="12313"
         slug="loops-in-programming"
         title="Loops in Programming"

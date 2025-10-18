@@ -1,0 +1,138 @@
+@use "@styles/_variables" as *;
+@use "@styles/_variables.light" as light;
+@use "@styles/_mixins" as *;
+
+.course {
+    width: 100%;
+    max-width: 1260px;
+    background-color: $bg-secondary;
+    border-radius: $border-radius-lg;
+    padding: $spacing-md;
+    display: flex;
+    gap: $spacing-md;
+    min-height: 200px;
+    box-sizing: border-box;
+    outline: 1px solid transparent;
+    transition: all $transition-fast;
+    cursor: pointer;
+
+    [data-theme="light"] & {
+        background-color: light.$bg-light;
+
+        @include hover-only {
+            background-color: light.$bg-secondary;
+        }
+    }
+
+    @include hover-only {
+        background-color: $bg-light;
+        outline-color: $accent-green
+    }
+
+    @media (max-width: $breakpoint-md) {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    &__content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: $spacing-sm;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: $font-size-lg;
+        font-weight: 700;
+        color: $text-primary;
+        line-height: $font-size-sm;
+    }
+
+    &__status {
+        background-color: rgba(0, 255, 157, 0.15);
+        margin: 0;
+        color: $accent-green;
+        padding: $spacing-xs $spacing-md;
+        padding-top: $spacing-sm;
+        border-radius: 20px;
+        font-size: $font-size-xs;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &__description {
+        margin: 0;
+        text-align: left;
+        color: $text-secondary;
+        font-size: 14px;
+        line-height: 1.5;
+        display: -webkit-box;
+        line-clamp: 5;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__tags {
+        display: flex;
+        gap: $spacing-sm;
+        flex-wrap: wrap;
+    }
+
+    &__tag {
+        background-color: $bg-light;
+        font-size: $font-size-xs;
+        padding: $spacing-xs $spacing-md;
+        border-radius: $border-radius-lg;
+        color: $text-secondary-2;
+        white-space: nowrap;
+
+        [data-theme="light"] & {
+            background-color: rgba($bg-primary, 0.05);
+            color: light.$text-secondary-2;
+        }
+    }
+
+    &__progress {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+    }
+
+    &__progressBar {
+        height: 6px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+
+        [data-theme="light"] & {
+            background-color: rgba($bg-primary, 0.05);
+        }
+    }
+
+    &__progressFill {
+        height: 100%;
+        background: linear-gradient(to right, #4688D3, #00cc7d);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+    }
+
+    &__progressText {
+        font-size: 12px;
+        color: $text-secondary;
+        align-self: flex-end;
+
+        [data-theme="light"] & {
+            color: $text-muted;
+        }
+    }
+}
