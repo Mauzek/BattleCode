@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
 import styles from "./calendar.module.scss";
-import { useTheme } from "@/hooks";
 import { ModalWrapper } from "../shared";
 import type {
   CalendarEvent,
@@ -20,8 +19,6 @@ const Calendar: React.FC<CalendarProps> = ({
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
     null
   );
-
-  const { theme, toggleTheme } = useTheme();
 
   const showEventPopup = (event: CalendarEvent) => {
     setSelectedEvent(event);
@@ -349,7 +346,7 @@ const Calendar: React.FC<CalendarProps> = ({
   const calendarHeight = useMemo(() => {
     if (timeSlots.length === 0) return 1440;
     const lastSlot = timeSlots[timeSlots.length - 1];
-    return lastSlot.pixelPosition + 30; 
+    return lastSlot.pixelPosition + 30;
   }, [timeSlots]);
 
   return (
@@ -370,13 +367,9 @@ const Calendar: React.FC<CalendarProps> = ({
           </p>
         </ModalWrapper>
       )}
-      
+
       <div className={styles.calendarContainer}>
-        <div
-          className={`${styles.calendarHeader} ${
-            theme === "light" ? styles.light : ""
-          }`}
-        >
+        <div className={styles.calendarHeader}>
           <button onClick={goToPreviousWeek} className={styles.navButton}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -416,24 +409,16 @@ const Calendar: React.FC<CalendarProps> = ({
         </div>
 
         <div className={styles.calendarGrid}>
-          <div
-            className={`${styles.timeColumnHeader} ${
-              theme === "light" ? styles.light : ""
-            }`}
-          ></div>
+          <div className={styles.timeColumnHeader}></div>
 
           {weekDates.map((day) => (
             <div
               key={day.dateString}
               className={`${styles.dayHeader} ${
                 day.isToday ? styles.today : ""
-              } ${theme === "light" ? styles.light : ""}`}
+              } `}
             >
-              <div
-                className={`${styles.dayName} ${
-                  theme === "light" ? styles.light : ""
-                }`}
-              >
+              <div className={styles.dayName}>
                 {day.date.toLocaleDateString("ru-RU", { weekday: "short" })}
               </div>
               <div className={styles.dayNumber}>{day.day}</div>
@@ -443,15 +428,15 @@ const Calendar: React.FC<CalendarProps> = ({
             <React.Fragment key={slot.time}>
               <div
                 className={`${styles.timeSlot} ${
-                  theme === "light" ? styles.light : ""
-                } ${
                   slot.minute === 0 ? styles.hourSlot : styles.quarterSlot
                 }`}
               >
                 {slot.minute === 0 && (
                   <span
                     className={`${styles.timeLabel} ${
-                      slot.hour === 0 && slot.minute === 0 ? styles.firstHour : ""
+                      slot.hour === 0 && slot.minute === 0
+                        ? styles.firstHour
+                        : ""
                     }`}
                   >
                     {slot.time}
@@ -474,7 +459,7 @@ const Calendar: React.FC<CalendarProps> = ({
             style={{ height: `${calendarHeight}px` }}
           >
             {calendarEvents.map((event) => {
-              const hasEnoughHeight = event.height >= 40; 
+              const hasEnoughHeight = event.height >= 40;
               const isSingleLine = !hasEnoughHeight;
 
               return (
@@ -488,7 +473,7 @@ const Calendar: React.FC<CalendarProps> = ({
                     height: `${event.height}px`,
                     backgroundColor: event.color || "#3498db",
                   }}
-                  onClick={() => showEventPopup(event)} 
+                  onClick={() => showEventPopup(event)}
                 >
                   <div
                     className={`${styles.eventContent} ${
@@ -504,7 +489,6 @@ const Calendar: React.FC<CalendarProps> = ({
           </div>
         </div>
       </div>
-      <button style={{display:'none'}} onClick={toggleTheme}></button>
     </div>
   );
 };
