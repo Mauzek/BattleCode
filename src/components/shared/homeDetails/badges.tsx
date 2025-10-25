@@ -5,6 +5,7 @@ import styles from "./homeDetails.module.scss";
 import { useState } from "react";
 import { ModalWrapper } from "../modalWrapper";
 import { useTranslation } from "@/hooks";
+import { useAppSelector } from "@/hooks/storeHooks";
 
 interface BadgesProps {
   nearestDeadline?: string; 
@@ -36,7 +37,7 @@ export const Badges = ({
   coursesProgress = { current: 0, total: 50 }
 }: BadgesProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const { user } = useAppSelector(state => state.auth);
   const toggleModal = () => setIsOpen((prev) => !prev);
 
   const calcPercent = (current: number, total: number): number => {
@@ -45,7 +46,7 @@ export const Badges = ({
   };
 
   const {t} = useTranslation();
-
+  if(!user) return;
   return (
     <div className={styles.homeDetails__badgesContainer}>
       <Link to="calendar" className={`${styles.badge} ${styles.badge_type_deadline}`}>
@@ -57,7 +58,7 @@ export const Badges = ({
         </div>
       </Link>
 
-      <Link to="user/boby/badges" className={`${styles.badge} ${styles.badge_type_achievement}`}>
+      <Link to={`user/${user.username}/badges`} className={`${styles.badge} ${styles.badge_type_achievement}`}>
         <div className={styles.badge__content}>
           <h3 className={styles.badge__title}>{t("Achievement progress")}</h3>
           <p className={styles.badge__value}>

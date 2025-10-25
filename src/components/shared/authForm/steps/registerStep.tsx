@@ -92,22 +92,22 @@ export const RegisterStep = ({
 
         <label className={styles.auth__field}>
           <Input
-            name="confirmPassword"
+            name="passwordConfirmation"
             register={register}
             errors={errors}
             type="password"
             autoComplete="new-password"
             placeholder=" "
             className={`${styles.auth__input} ${
-              errors.confirmPassword ? styles["auth__input--error"] : ""
+              errors.passwordConfirmation ? styles["auth__input--error"] : ""
             }`}
           />
           <span className={styles.auth__floatingLabel}>
             {t("Confirm the password")}
           </span>
-          {errors.confirmPassword && (
+          {errors.passwordConfirmation && (
             <span className={styles.auth__error}>
-              {t(errors.confirmPassword.message ?? "")}
+              {t(errors.passwordConfirmation.message ?? "")}
             </span>
           )}
         </label>

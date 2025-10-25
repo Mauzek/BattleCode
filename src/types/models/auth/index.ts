@@ -5,11 +5,24 @@ export interface LoginModel {
   captchaResponse: string;
 }
 
+// Тип для регистрации
+export interface RegisterModel {
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  avatarUrl: string;
+  roles: string[];
+  bio: string
+}
+
 // Тип для получения данных пользователя (без паролей)
 export interface UserResponse {
+  id: string;
   username: string;
   email: string;
   avatarUrl?: string;
+  token: string;
   roles: string[];
   bio?: string;
 }
