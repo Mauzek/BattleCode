@@ -2,7 +2,6 @@ import type { UserResponse } from '@/types/models/auth';
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import { userApi } from '@/api/user'; 
 
-// Асинхронные thunk'и для работы с пользователем - используем готовые заглушки
 export const updateUserProfile = createAsyncThunk(
   'user/updateProfile',
   async (userData: Partial<UserResponse>, { rejectWithValue }) => {

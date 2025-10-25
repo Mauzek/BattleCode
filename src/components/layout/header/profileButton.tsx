@@ -1,15 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import { MdMoreVert } from "react-icons/md";
 import { gsap } from "gsap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LuMoon, LuLogOut, LuSun } from "react-icons/lu";
 import styles from "./header.module.scss";
 import { useTheme, useTranslation } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { logoutUser } from "@/store/slices/authSlice";
 
 export const ProfileButton = () => {
   const [open, setOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const {t} = useTranslation();
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLDivElement | null>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
@@ -32,6 +37,12 @@ export const ProfileButton = () => {
       ease: "power3.out",
       pointerEvents: "auto",
     });
+
+    return () => {
+      if (tl.current) {
+        tl.current.kill();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -70,6 +81,13 @@ export const ProfileButton = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
+  if (!user) return null;
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser(user.id));
+    navigate("/auth");
+  };
+
   return (
     <div className={styles.header__profileWrapper}>
       <div
@@ -83,19 +101,19 @@ export const ProfileButton = () => {
         <MdMoreVert color="#fff" size={24} />
         <img
           className={styles.header__avatar}
-          src="/noavatar.png"
+          src={user.avatarUrl ? user.avatarUrl : "/noavatar.png"}
           alt="Профиль"
         />
       </div>
 
       <div ref={dropdownRef} className={styles.profileDropdown}>
         <div className={styles.profileDropdown__user}>
-          <p className={styles.profileDropdown__username}>Boby</p>
+          <p className={styles.profileDropdown__username}>{user.username}</p>
           <span className={styles.profileDropdown__level}>lvl 9</span>
         </div>
 
         <Link
-          to="/user/boby"
+          to={`/user/${user.username}`}
           className={styles.profileDropdown__link}
           onClick={() => setOpen(false)}
         >
@@ -103,18 +121,31 @@ export const ProfileButton = () => {
         </Link>
 
         <Link
-          to="/user/boby/settings"
+          to={`/user/${user.username}/settings`}
           className={styles.profileDropdown__link}
           onClick={() => setOpen(false)}
         >
           {t("Settings")}
         </Link>
 
-        <button className={styles.profileDropdown__button} onClick={toggleTheme}>
+        <button
+          className={styles.profileDropdown__button}
+          onClick={toggleTheme}
+        >
           <div className={styles.profileDropdown__theme}>
-            <p className={styles.profileDropdown__themeLabel}>{t("Switch theme")}</p>
+            <p className={styles.profileDropdown__themeLabel}>
+              {t("Switch theme")}
+            </p>
             <p className={styles.profileDropdown__themeMode}>
-              {theme === "light" ? <><LuSun /> {t("Light")} </>: <><LuMoon /> {t("Dark")}</>}
+              {theme === "light" ? (
+                <>
+                  <LuSun /> {t("Light")}{" "}
+                </>
+              ) : (
+                <>
+                  <LuMoon /> {t("Dark")}
+                </>
+              )}
             </p>
           </div>
         </button>
@@ -123,6 +154,7 @@ export const ProfileButton = () => {
 
         <button
           className={`${styles.profileDropdown__button} ${styles["profileDropdown__button--logout"]}`}
+          onClick={handleLogout}
         >
           <LuLogOut size={24} /> {t("Log out")}
         </button>

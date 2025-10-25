@@ -10,7 +10,7 @@ import { store } from "./store/index.ts";
 import { ThemeProvider } from "./components/index.ts";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  // <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <ThemeProvider>
@@ -18,5 +18,5 @@ createRoot(document.getElementById("root")!).render(
         </ThemeProvider>
       </Provider>
     </BrowserRouter>
-  </StrictMode>
+  // </StrictMode>
 );
