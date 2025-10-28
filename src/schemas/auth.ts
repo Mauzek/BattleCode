@@ -17,9 +17,9 @@ const registerSchema = z
       .max(20, "Maximum 20 characters")
       .regex(/^[A-Za-z0-9]+$/, "Only English letters and numbers, no spaces"),
     password: z.string().min(6, "Minimum of 6 characters"),
-    confirmPassword: z.string(),
+    passwordConfirmation: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });

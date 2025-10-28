@@ -1,22 +1,16 @@
 import type { UserResponse } from "@/types/models/auth";
-import { delay, mockUser, shouldFail } from "../auth";
-import api from "..";
+import { mockUser } from "../auth";
+import { apiClient } from "..";
 
-// заглушка
 export const userApi = {
   async updateProfile(userData: UserResponse): Promise<UserResponse> {
-    await delay(800);
     
-    if (shouldFail()) {
-      throw new Error('404');
-    }
-
     return {...mockUser, username:userData.username};
   },
 
  async getProfile(userId: string): Promise<UserResponse> {
   try {
-    const response = await api.get<UserResponse>(`/users/profile/${userId}`);
+    const response = await apiClient.get<UserResponse>(`/users/profile/${userId}`);
     return response.data;
   } catch (error: any) {
     if (error?.response?.status === 404) {

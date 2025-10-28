@@ -1,22 +1,14 @@
-// api.ts
-import axios from 'axios';
+import axios from "axios";
 
-const api = axios.create({
-  baseURL: "",
-  // process.env.VITE_API_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+export const apiClient = axios.create({
+  baseURL: "/api",
+  withCredentials: true, 
 });
 
-// Добавляем интерцепторы для обработки ошибок
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error('API Error:', error);
-    return Promise.reject(error);
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("accessToken");
+  if (token && !config.headers.Authorization) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
-
-export default api;
+  return config;
+});

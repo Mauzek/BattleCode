@@ -2,12 +2,13 @@ import { ModalWrapper, MdViewer, MdEditor, Skeleton, HomeDetails, HomeDetailsSke
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./home.module.scss";
+import { useAppSelector } from "@/hooks/storeHooks";
 
 export const HomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mdContent, setMdContent] = useState<string>("## Биби боба");
   const [isLoading, setIsLoading] = useState(true); 
-
+  const { user } = useAppSelector(state => state.auth);
   useEffect(() => {
     const loadHomeDetails = async () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -22,7 +23,7 @@ export const HomePage = () => {
       <div className={styles.topInfo}>
         <div className={styles.topInfo__info}>
           <h1 className={styles.topInfo__name}>
-            Boby <span className={styles.topInfo__level}>9 lvl</span>
+            {user?.username} <span className={styles.topInfo__level}>9 lvl</span>
           </h1>
           <div className={styles.topInfo__xpBar} data-xp={`${1923}xp`}>
             <div className={styles.topInfo__xpFill} style={{ width: "65%" }} />

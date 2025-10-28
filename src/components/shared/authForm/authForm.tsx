@@ -24,6 +24,10 @@ import { ForgotPasswordStep } from "./steps/forgotPasswordStep";
 import styles from "./authForm.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "@/hooks";
+import { useAppDispatch } from "@/hooks/storeHooks";
+import { loginUser, setUser } from "@/store/slices/authSlice";
+import type { UserResponse } from "@/types/models/auth";
+import { authApi } from "@/api/auth";
 
 type AuthStep =
   | "login"
@@ -36,10 +40,12 @@ type AuthStep =
 export const AuthForm = () => {
   const [step, setStep] = useState<AuthStep>("login");
   const [loading, setLoading] = useState(false);
+  const [tempUser, setTempUser] = useState<UserResponse | null>(null);
   const [registrationData, setRegistrationData] =
     useState<RegisterFormData | null>(null);
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -81,58 +87,35 @@ export const AuthForm = () => {
     setRegistrationData(null);
   };
 
-  const sendData = async (data: unknown): Promise<string> => {
-    console.log("Отправка данных:", data);
-    return new Promise((resolve) => setTimeout(() => resolve("OK"), 1000));
-  };
+  const onLoginSubmit = async (
+    data: LoginFormData & { captchaResponse: string }
+  ) => {
+    setLoading(true);
+    try {
+      const userResponse = await promiseToast(
+        () => dispatch(loginUser(data)).unwrap(),
+        {
+          loading: `${t("Logging in")}...`,
+          success: () => t("Login successful"),
+          error: (err) =>
+            err instanceof Error ? err.message : t("Login failed"),
+        }
+      );
 
-const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) => {
-  setLoading(true);
-  try {
-    await promiseToast(
-      () =>
-        new Promise<void>((resolve, reject) => {
-          setTimeout(() => {
-            const shouldSucceed = true; 
-            if (shouldSucceed) {
-              resolve();
-            } else {
-              reject(new Error(t(("Incorrect username or password"))));
-            }
-          }, 1000);
-        }),
-      {
-        loading: `${t("Logging in")}...`,
-        success: () => t("Login successful"),
-        error: (err) => (err instanceof Error ? err.message : t("Login failed")),
-      }
-    );
-    console.log('Login: '+ data.username)
-    console.log('password: '+ data.password)
-    console.log('captchaResponse: '+ data.captchaResponse)
-    const userHas2FA = true; 
-
-    if (userHas2FA) {
+      setTempUser(userResponse);
       setStep("verify2FA");
-    } else {
-      resetLogin();
-      console.log("Welcome! No 2FA required.");
+    } catch (err) {
+      console.error("Login error:", err);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error("Login error:", err);
-  } finally {
-    setLoading(false);
-  }
-}
+  };
 
   const onVerify2FASubmit = async (data: Verify2FAFormData) => {
     setLoading(true);
     try {
-      const token = await promiseToast(
-        () =>
-          new Promise<string>((r) =>
-            setTimeout(() => r("mock-jwt-token"), 800)
-          ),
+      await promiseToast(
+        () => new Promise<string>((r) => setTimeout(() => r(""), 800)),
         {
           loading: `${t("Verifying 2FA code")}...`,
           success: () => t("2FA verified! Access granted"),
@@ -140,11 +123,16 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
         }
       );
       console.log(`2FA: ${data}`);
-      localStorage.setItem("token", token);
+      if (!tempUser) throw new Error("User data missing");
+
+      const fullUser: UserResponse = { ...tempUser };
+
+      localStorage.setItem("accessToken", fullUser.token);
+      dispatch(setUser(fullUser));
+
       navigate("/");
       resetLogin();
       resetVerify2FA();
-      console.log("User authenticated and token saved!");
     } catch (err) {
       console.error("2FA verification failed:", err);
     } finally {
@@ -155,11 +143,24 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
   const onRegisterSubmit = async (data: RegisterFormData) => {
     setLoading(true);
     try {
-      await promiseToast(() => sendData(data), {
-        loading: `${t("Registering")}...`,
-        success: () => t("Check your email for a code"),
-        error: (err) => `${t("Error")}: ${err}`,
-      });
+      await promiseToast(
+        () =>
+          authApi.registration({
+            ...data,
+            avatarUrl: "",
+            bio: "",
+            roles: ["developer"],
+          }),
+        {
+          loading: `${t("Registering")}...`,
+          success: () => t("Check your email for a code"),
+          error: (err) =>
+            `${t("Error")}: ${
+              err instanceof Error ? err.message : t("Registration failed")
+            }`,
+        }
+      );
+
       setRegistrationData(data);
       setStep("confirmEmail");
     } catch (err) {
@@ -172,12 +173,21 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
   const onConfirmSubmit = async (data: ConfirmCodeFormData) => {
     setLoading(true);
     try {
-      console.log(`confirm: ${data.code}`);
-      await promiseToast(() => new Promise((r) => setTimeout(r, 800)), {
+      const email = registrationData?.email;
+
+      if (!email) {
+        throw new Error("Email is missing");
+      }
+
+      await promiseToast(() => authApi.confirmEmail(Number(data.code), email), {
         loading: `${t("Verifying code")}...`,
         success: () => `${t("Email confirmed")}!`,
-        error: (err) => `${t("Verification failed")}: ${err}`,
+        error: (err) =>
+          `${t("Verification failed")}: ${
+            err instanceof Error ? err.message : t("Unknown error")
+          }`,
       });
+
       setStep("twoFA");
     } catch (err) {
       console.error("Confirm code error:", err);
@@ -197,7 +207,7 @@ const onLoginSubmit = async (data: LoginFormData & { captchaResponse: string }) 
           error: () => t("Failed to send recovery email"),
         }
       );
-      console.log("fogotPassword: " + data)
+      console.log("fogotPassword: " + data);
       setStep("login");
       resetForgotPassword();
     } catch (err) {
