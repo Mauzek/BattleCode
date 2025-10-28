@@ -1,7 +1,8 @@
+import ProfileInfoScreen  from "@/screens/profile/ProfileInfo/ProfileInfoScreen"
 
 const ProfileInfo = () => {
   return (
-    <div>ProfileInfo</div>
+    <ProfileInfoScreen/>
   )
 }
 

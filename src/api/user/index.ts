@@ -13,13 +13,15 @@ export const userApi = {
     return {...mockUser, username:userData.username};
   },
 
-  async getProfile(usernameFinder: string): Promise<UserResponse> {
-    await delay(600);
-    
-    if (shouldFail()) {
-      throw new Error('404');
+ async getProfile(userId: string): Promise<UserResponse> {
+  try {
+    const response = await api.get<UserResponse>(`/users/profile/${userId}`);
+    return response.data;
+  } catch (error) {
+    if (error.response?.status === 404) {
+      throw new Error('User not found');
     }
-
-    return {...mockUser, username:usernameFinder};
+    throw new Error('Failed to fetch user profile');
   }
+}
 };

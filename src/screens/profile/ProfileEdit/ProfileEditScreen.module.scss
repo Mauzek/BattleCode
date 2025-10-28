@@ -1,0 +1,145 @@
+@use "@styles/_variables" as *;
+@use "@styles/_mixins" as *;
+
+.profileEdit {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  
+  [data-theme="light"] & {
+    color: #1a202c;
+  }
+  
+  [data-theme="dark"] & {
+    color: #fff;
+  }
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formSection {
+  padding: 24px;
+  
+  [data-theme="light"] & {
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+  }
+  
+  [data-theme="dark"] & {
+    background-color: #2D3748;
+    border: 1px solid #3E4857;
+  }
+  
+  border-radius: 12px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  
+  [data-theme="light"] & {
+    color: #1a202c;
+  }
+  
+  [data-theme="dark"] & {
+    color: #fff;
+  }
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  
+  [data-theme="light"] & {
+    color: #2D3748;
+  }
+  
+  [data-theme="dark"] & {
+    color: #fff;
+  }
+}
+
+.formInput, .formTextarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  
+  [data-theme="light"] & {
+    background-color: #fff;
+    color: #1a202c;
+  }
+  
+  [data-theme="dark"] & {
+    background-color: #1D2633;
+    color: #fff;
+    border-color: #3E4857;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #44EB99;
+  }
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.formActions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+
+.btnPrimary, .btnSecondary {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btnPrimary {
+  background-color: #44EB99;
+  color: white;
+
+  &:hover {
+    background-color: #3ad489;
+  }
+}
+
+.btnSecondary {
+  background-color: #6c757d;
+  color: white;
+
+  &:hover {
+    background-color: #5a6268;
+  }
+}

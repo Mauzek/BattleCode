@@ -7,6 +7,7 @@ export interface LoginModel {
 
 // Тип для получения данных пользователя (без паролей)
 export interface UserResponse {
+  userId: string;
   username: string;
   email: string;
   avatarUrl?: string;
