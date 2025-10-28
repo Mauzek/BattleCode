@@ -13,7 +13,8 @@ export const shouldFail = () => Math.random() > 0.5;
 
 // Заглушка
 export const mockUser: UserResponse = {
-  userId:'mock-id',
+  id: 'mock-id',
+  userId:'mock-userid',
   username: "mock",
   email: `mock@example.com`,
   token: "mock-token",
