@@ -25,8 +25,8 @@ const getUserProfile = async (username: string): Promise<UserResponse> => {
   }
 
   const response = {
-    userId: '1',
-    username: 'boby_dev',
+    userId: 'ddbcb8d6-4a4a-4f7f-939e-2abcff732b0a',
+    username: 'boby',
     email: 'boby@company.com',
     roles: ['admin', 'developer'],
     avatarUrl: '',

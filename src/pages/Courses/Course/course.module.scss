@@ -1,0 +1,88 @@
+@use "@styles/_variables" as *;
+@use "@styles/_variables.light" as light;
+
+.course {
+    padding: $spacing-md;
+    text-align: left;
+    background-color: $bg-secondary;
+    border-radius: $border-radius-lg;
+    margin-bottom: $spacing-lg;
+
+    [data-theme="light"] & {
+        background-color: light.$bg-light;
+    }
+
+    &__title {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        margin: 0 0 0.75rem;
+    }
+
+    &__author {
+        font-size: $font-size-base;
+        margin-bottom: $spacing-md;
+    }
+
+    &__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: $spacing-md;
+    }
+
+    &__badge {
+        background-color: $bg-light;
+        font-size: $font-size-sm;
+        padding: $spacing-xs $spacing-md;
+        border-radius: $border-radius-lg;
+        color: $text-secondary-2;
+        white-space: nowrap;
+        transition: all $transition-fast;
+
+        [data-theme="light"] & {
+            background-color: rgba($bg-primary, 0.05);
+            color: light.$text-secondary-2;
+        }
+    }
+
+    &__sectionTitle {
+        font-size: $font-size-xl;
+        margin-bottom: 1rem;
+    }
+
+    &__description {
+        font-size: $font-size-base;
+        line-height: 1.6;
+    }
+
+    &__skills {
+        padding-left: 1.5rem;
+        font-size: $font-size-base;
+        list-style-type: circle;
+    }
+
+    &__skillItem {
+        margin-bottom: 0.4rem;
+    }
+
+    &__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    &__tag {
+        background-color: $bg-light;
+        font-size: $font-size-sm;
+        padding: $spacing-xs $spacing-md;
+        border-radius: $border-radius-lg;
+        color: $text-secondary-2;
+        white-space: nowrap;
+        transition: all $transition-fast;
+
+        [data-theme="light"] & {
+            background-color: rgba($bg-primary, 0.05);
+            color: light.$text-secondary-2;
+        }
+    }
+}
