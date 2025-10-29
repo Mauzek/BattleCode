@@ -1,15 +1,19 @@
 import { SectionTabs } from "@/components";
 import { useTranslation } from "@/hooks/localeHooks/useTranslation";
-import { useAppSelector } from "@/hooks/storeHooks";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
+// import { useAppSelector } from "@/hooks/storeHooks";
 import { Outlet, useParams, useLocation, Navigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const { username } = useParams<{ username: string }>();
   const { t } = useTranslation();
-  const { user } = useAppSelector((state) => state.auth);
+  const currentUser = useSelector((state: RootState) => state.user.currentUser);
+  
+  const isOwner = currentUser && username && currentUser.username === username;
+  // const { user } = useAppSelector((state) => state.auth);
   const location = useLocation();
 
-  const isOwner = user?.username === username;
   const restrictedRoutes = ["/edit", "/settings"];
 
   const isRestricted = restrictedRoutes.some((route) =>
@@ -23,6 +27,10 @@ const ProfilePage = () => {
   const profileTabs = [
     { label: t("About a participant"), path: `` },
     { label: t("Badges"), path: `badges` },
+    ...(isOwner ? [
+      { label: t("Edit profile"), path: `edit` },
+      { label: t("Settings"), path: `settings` },
+    ] : [])
   ];
 
   if (isOwner) {

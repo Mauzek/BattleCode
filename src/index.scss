@@ -40,6 +40,10 @@ html {
     color: light.$text-primary;
     transition: color $transition-fast;
   }
+
+  text { 
+    fill: light.$text-primary;
+  }
 }
 
 body {
@@ -53,6 +57,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color $transition-normal, color $transition-normal;
+
+  text {
+    fill: $text-primary;
+  }
 }
 
 // Заголовки

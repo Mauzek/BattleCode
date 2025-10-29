@@ -18,7 +18,8 @@ export interface RegisterModel {
 
 // Тип для получения данных пользователя (без паролей)
 export interface UserResponse {
-  id: string;
+  id: string,
+  userId: string;
   username: string;
   email: string;
   avatarUrl?: string;
