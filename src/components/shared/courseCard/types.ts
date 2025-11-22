@@ -5,5 +5,4 @@ export interface CourseCardProps {
   status: "not started" | "in progress" | "completed";
   progress: number;
   tags: string[];
-  slug?: string;
 }

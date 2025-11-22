@@ -108,7 +108,6 @@ export const HomeDetails = () => {
 
       <CourseCard
         id="12313"
-        slug="loops-in-programming"
         title="Loops in Programming"
         description="Master the fundamentals of loops: for, while, and do-while. Learn to avoid infinite loops and optimize iterations."
         status="in progress"

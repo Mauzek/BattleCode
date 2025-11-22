@@ -8,7 +8,6 @@ export const CoursesDetails = ({ courses }: CoursesDetailsProps) => {
       {courses.map((item) => (
         <CourseCard
           id={item.id}
-          slug={item.slug}
           title={item.title}
           description={item.description}
           status={item.status}

@@ -15,7 +15,7 @@ export const shouldFail = () => Math.random() > 0.5;
 export const mockUser: UserResponse = {
   id: 'mock-id',
   userId:'mock-userid',
-  username: "mock",
+  username: "boby",
   email: `mock@example.com`,
   token: "mock-token",
   avatarUrl:

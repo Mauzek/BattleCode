@@ -10,11 +10,10 @@ export const CourseCard = ({
   status,
   progress,
   tags,
-  slug = String(id),
 }: CourseCardProps) => {
   const { t } = useTranslation();
   return (
-    <Link to={`/courses/${slug}`} className={styles.course}>
+    <Link to={`/courses/${id}`} className={styles.course}>
       <div className={styles.course__content}>
         <div className={styles.course__header}>
           <h2 className={styles.course__title}>{title}</h2>
