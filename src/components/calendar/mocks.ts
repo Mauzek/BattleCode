@@ -1,191 +1,193 @@
 import type { TimeSlot } from "./types";
 
-export const mockEvents: TimeSlot[] = [
-  {
-    id: '1',
-    title: 'Утренняя планерка',
-    startTime: '12:00',
-    endTime: '23:45',
-    date: '2025-10-14',
-    color: '#3498db'
-  },
-  {
-    id: '2',
-    title: 'Разработка нового функционала',
-    startTime: '10:15',
-    endTime: '11:30',
-    date: '2025-10-14',
-    color: '#2ecc71'
-  },
-  {
-    id: '3',
-    title: 'Встреча с заказчиком',
-    startTime: '14:00',
-    endTime: '15:30',
-    date: '2025-10-14',
-    color: '#e74c3c'
-  },
-  {
-    id: '4',
-    title: 'Code Review',
-    startTime: '16:00',
-    endTime: '17:00',
-    date: '2025-10-14',
-    color: '#f39c12'
-  },
-  {
-    id: '5',
-    title: 'Спринт планирование',
-    startTime: '10:00',
-    endTime: '12:00',
-    date: '2025-10-15',
-    color: '#9b59b6'
-  },
-  {
-    id: '6',
-    title: 'Обед с коллегами',
-    startTime: '13:00',
-    endTime: '14:00',
-    date: '2025-10-15',
-    color: '#e67e22'
-  },
-  {
-    id: '7',
-    title: 'Работа над багами',
-    startTime: '14:30',
-    endTime: '16:30',
-    date: '2025-10-15',
-    color: '#1abc9c'
-  },
-  {
-    id: '8',
-    title: 'Английский язык',
-    startTime: '09:30',
-    endTime: '10:30',
-    date: '2025-10-16',
-    color: '#34495e'
-  },
-  {
-    id: '9',
-    title: 'Демо новой версии',
-    startTime: '11:00',
-    endTime: '12:30',
-    date: '2025-10-16',
-    color: '#d35400'
-  },
-  {
-    id: '10',
-    title: 'Техническое интервью',
-    startTime: '14:00',
-    endTime: '16:00',
-    date: '2025-10-16',
-    color: '#c0392b'
-  },
-  {
-    id: '11',
-    title: 'Работа с документацией',
-    startTime: '09:00',
-    endTime: '11:00',
-    date: '2025-10-17',
-    color: '#16a085'
-  },
-  {
-    id: '12',
-    title: 'Встреча с отделом маркетинга',
-    startTime: '12:00',
-    endTime: '13:00',
-    date: '2025-10-17',
-    color: '#8e44ad'
-  },
-  {
-    id: '13',
-    title: 'Оптимизация производительности',
-    startTime: '14:00',
-    endTime: '17:00',
-    date: '2025-10-17',
-    color: '#27ae60'
-  },
-  {
-    id: '14',
-    title: 'Недельный отчет',
-    startTime: '10:00',
-    endTime: '11:30',
-    date: '2025-10-18',
-    color: '#2980b9'
-  },
-  {
-    id: '15',
-    title: 'Обучение новых сотрудников',
-    startTime: '12:00',
-    endTime: '14:00',
-    date: '2025-10-18',
-    color: '#f1c40f'
-  },
-  {
-    id: '16',
-    title: 'Ретроспектива спринта',
-    startTime: '15:00',
-    endTime: '16:30',
-    date: '2025-10-18',
-    color: '#e74c3c'
-  },
-  {
-    id: '17',
-    title: 'Йога',
-    startTime: '10:00',
-    endTime: '11:00',
-    date: '2025-10-19',
-    color: '#7f8c8d'
-  },
-  {
-    id: '18',
-    title: 'Поход в кино',
-    startTime: '15:00',
-    endTime: '18:00',
-    date: '2025-10-19',
-    color: '#e84393'
-  },
-  {
-    id: '19',
-    title: 'Семейный обед',
-    startTime: '0:00',
-    endTime: '2:00',
-    date: '2025-10-20',
-    color: '#fd79a8'
-  },
-  {
-    id: '20',
-    title: 'Подготовка к неделе',
-    startTime: '1:45',
-    endTime: '3:00',
-    date: '2025-10-20',
-    color: '#00cec9'
-  },
-  {
-    id: '21',
-    title: 'Совещание 1',
-    startTime: '2:45',
-    endTime: '4:30',
-    date: '2025-10-20',
-    color: '#74b9ff'
-  },
-  {
-    id: '22',
-    title: 'Совещание 2',
-    startTime: '10:00',
-    endTime: '11:00',
-    date: '2025-10-14',
-    color: '#ff7675'
-  },
-  {
-    id: '23',
-    title: 'Совещание 3',
-    startTime: '10:15',
-    endTime: '11:30',
-    date: '2025-10-14',
-    color: '#55efc4'
-  }
-];
+export const mockEvents: TimeSlot[] =
+[
+    {
+        "id": "random-0",
+        "title": "Совещание 1",
+        "startTime": "06:00",
+        "endTime": "07:30",
+        "date": "2025-11-23",
+        "color": "#3498db"
+    },
+    {
+        "id": "random-1",
+        "title": "Встреча 2",
+        "startTime": "07:30",
+        "endTime": "09:00",
+        "date": "2025-11-21",
+        "color": "#3498db"
+    },
+    {
+        "id": "random-2",
+        "title": "Разработка 3",
+        "startTime": "07:30",
+        "endTime": "08:00",
+        "date": "2025-11-17",
+        "color": "#3498db"
+    },
+    {
+        "id": "random-3",
+        "title": "Встреча 4",
+        "startTime": "04:30",
+        "endTime": "04:00",
+        "date": "2025-11-22",
+        "color": "#1abc9c"
+    },
+    {
+        "id": "random-4",
+        "title": "Обучение 5",
+        "startTime": "01:30",
+        "endTime": "03:00",
+        "date": "2025-11-21",
+        "color": "#1abc9c"
+    },
+    {
+        "id": "random-5",
+        "title": "Совещание 6",
+        "startTime": "02:00",
+        "endTime": "03:00",
+        "date": "2025-11-23",
+        "color": "#2ecc71"
+    },
+    {
+        "id": "random-6",
+        "title": "Демо 7",
+        "startTime": "06:30",
+        "endTime": "09:00",
+        "date": "2025-11-22",
+        "color": "#34495e"
+    },
+    {
+        "id": "random-7",
+        "title": "Code Review 8",
+        "startTime": "02:30",
+        "endTime": "04:00",
+        "date": "2025-11-22",
+        "color": "#3498db"
+    },
+    {
+        "id": "random-8",
+        "title": "Планирование 9",
+        "startTime": "02:00",
+        "endTime": "05:30",
+        "date": "2025-11-20",
+        "color": "#2ecc71"
+    },
+    {
+        "id": "random-9",
+        "title": "Планирование 10",
+        "startTime": "01:30",
+        "endTime": "04:00",
+        "date": "2025-11-22",
+        "color": "#e74c3c"
+    },
+    {
+        "id": "random-10",
+        "title": "Обучение 11",
+        "startTime": "04:30",
+        "endTime": "05:30",
+        "date": "2025-11-21",
+        "color": "#f39c12"
+    },
+    {
+        "id": "random-11",
+        "title": "Демо 12",
+        "startTime": "04:00",
+        "endTime": "05:00",
+        "date": "2025-11-22",
+        "color": "#2ecc71"
+    },
+    {
+        "id": "random-12",
+        "title": "Code Review 13",
+        "startTime": "03:00",
+        "endTime": "06:00",
+        "date": "2025-11-19",
+        "color": "#3498db"
+    },
+    {
+        "id": "random-13",
+        "title": "Демо 14",
+        "startTime": "01:00",
+        "endTime": "04:00",
+        "date": "2025-11-21",
+        "color": "#f39c12"
+    },
+    {
+        "id": "random-14",
+        "title": "Встреча 15",
+        "startTime": "05:30",
+        "endTime": "07:00",
+        "date": "2025-11-19",
+        "color": "#34495e"
+    },
+    {
+        "id": "random-15",
+        "title": "Планирование 16",
+        "startTime": "00:30",
+        "endTime": "02:00",
+        "date": "2025-11-22",
+        "color": "#3498db"
+    },
+    {
+        "id": "random-16",
+        "title": "Тестирование 17",
+        "startTime": "07:00",
+        "endTime": "08:30",
+        "date": "2025-11-20",
+        "color": "#3498db"
+    },
+    {
+        "id": "random-17",
+        "title": "Совещание 18",
+        "startTime": "08:30",
+        "endTime": "10:00",
+        "date": "2025-11-18",
+        "color": "#e74c3c"
+    },
+    {
+        "id": "random-18",
+        "title": "Code Review 19",
+        "startTime": "00:30",
+        "endTime": "02:00",
+        "date": "2025-11-18",
+        "color": "#2ecc71"
+    },
+    {
+        "id": "random-19",
+        "title": "Code Review 20",
+        "startTime": "03:30",
+        "endTime": "03:30",
+        "date": "2025-11-21",
+        "color": "#2ecc71"
+    },
+    {
+        "id": "random-20",
+        "title": "Code Review 21",
+        "startTime": "08:30",
+        "endTime": "08:30",
+        "date": "2025-11-17",
+        "color": "#3498db"
+    },
+    {
+        "id": "random-21",
+        "title": "Встреча 22",
+        "startTime": "08:30",
+        "endTime": "11:30",
+        "date": "2025-11-17",
+        "color": "#2ecc71"
+    },
+    {
+        "id": "random-22",
+        "title": "Разработка 23",
+        "startTime": "01:00",
+        "endTime": "02:30",
+        "date": "2025-11-23",
+        "color": "#f39c12"
+    }
+]
+
 
 export const getInitialDate = (): Date => {
   return new Date(); 
@@ -196,18 +198,18 @@ export const generateRandomEvents = (count: number): TimeSlot[] => {
   const events: TimeSlot[] = [];
   const colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c', '#34495e'];
   const titles = [
-    'Встреча', 'Презентация', 'Обед', 'Совещание', 'Разработка', 
+    'Встреча', 'Презентация', 'Совещание', 'Разработка', 
     'Тестирование', 'Code Review', 'Планирование', 'Демо', 'Обучение'
   ];
 
   const startDate = new Date();
   
   for (let i = 0; i < count; i++) {
-    const dayOffset = Math.floor(Math.random() * 7); // 0-6 дней от стартовой даты
+    const dayOffset = Math.floor(Math.random() * 7-5); // 0-6 дней от стартовой даты
     const eventDate = new Date(startDate);
     eventDate.setDate(startDate.getDate() + dayOffset);
     
-    const startHour = 8 + Math.floor(Math.random() * 10); // 8:00 - 18:00
+    const startHour = 0 + Math.floor(Math.random() * 9); // 8:00 - 18:00
     const duration = 0.5 + Math.random() * 3; // 0.5 - 3.5 часа
     const endHour = startHour + duration;
     
