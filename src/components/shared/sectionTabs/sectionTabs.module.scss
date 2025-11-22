@@ -17,6 +17,8 @@
         gap: $spacing-md;
         align-items: center;
         justify-content: center;
+        padding: 0 $spacing-md;
+        width: 100%;
     }
 
     &__back {
@@ -40,13 +42,19 @@
     }
 
     &__title {
-        margin: 0;
-        font-size: $font-size-2xl;
-        font-weight: $font-weight-bold;
-
-        [data-theme="light"] & {
-            color: light.$bg-primary !important;
-        }
+    margin: 0;
+    font-weight: $font-weight-bold;
+    white-space: nowrap;       // Запрет переноса
+    overflow: hidden;          // Обрезка текста
+    text-overflow: ellipsis;   // Многоточие
+             // Заголовок занимает всю ширину контейнера
+    font-size: clamp(1rem, 3vw, $font-size-2xl); // Динамический размер шрифта
+    [data-theme="light"] & {
+        color: light.$bg-primary !important;
+    }
+    @media (max-width: $breakpoint-2xl) {
+        font-size: clamp(0.875rem, 2.5vw, $font-size-lg); // Адаптивный размер для меньших экранов
+    }
     }
 
     &__nav {

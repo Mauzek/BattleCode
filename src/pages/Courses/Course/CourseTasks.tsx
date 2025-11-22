@@ -1,43 +1,13 @@
 import { Link } from "react-router-dom";
+import { useAppSelector } from "@/hooks/storeHooks";
 import styles from "./course-tasks.module.scss";
-
-const mockTasks = [
-  {
-    id: "1",
-    title: "Настройка статической маршрутизации",
-    description:
-      "Создайте топологию из трёх маршрутизаторов и настройте статические маршруты между ними.",
-    status: "completed",
-    deadline: "2025-11-10",
-  },
-  {
-    id: "2",
-    title: "Анализ трафика с Wireshark",
-    description:
-      "Захватите HTTP- и DNS-трафик, проанализируйте пакеты и опишите их структуру.",
-    status: "in-progress",
-    deadline: "2025-11-17",
-  },
-  {
-    id: "3",
-    title: "Настройка VLAN",
-    description:
-      "Разделите сеть на два VLAN на коммутаторе Cisco и обеспечьте меж-VLAN маршрутизацию.",
-    status: "locked",
-    deadline: "2025-11-24",
-  },
-];
 
 const getStatusText = (status: string) => {
   switch (status) {
-    case "completed":
-      return "Выполнено";
-    case "in-progress":
-      return "В работе";
-    case "locked":
-      return "Недоступно";
-    default:
-      return "Новое";
+    case "completed": return "Выполнено";
+    case "in-progress": return "В работе";
+    case "locked": return "Недоступно";
+    default: return "Новое";
   }
 };
 
@@ -50,33 +20,62 @@ const getStatusMod = (status: string) => {
 };
 
 const CourseTasks = () => {
+  const { currentCourse, status, error } = useAppSelector(state => state.course);
+
+
+  if (status === 'loading' && !currentCourse) {
+    return <div className={styles.tasks}>Загрузка заданий...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className={styles.tasks}>
+        <div className={styles.error}>Не удалось загрузить задания: {error}</div>
+      </div>
+    );
+  }
+
+  if (!currentCourse || !currentCourse.tasks || currentCourse.tasks.length === 0) {
+    return <div className={styles.tasks}>В этом курсе пока нет заданий.</div>;
+  }
+
+  // 🔹 Берём реальные задачи из курса
+  const tasks = currentCourse.tasks; // ← тип: TaskPreview[]
+
   return (
     <div className={styles.tasks}>
       <div className={styles.tasks__list}>
-        {mockTasks.map((task) => (
-          <Link
-            to={`${task.id}`}
-            key={task.id}
-            className={`${styles.tasks__item} ${
-              task.status === "locked" ? styles["tasks__item_disabled"] : ""
-            }`}
-          >
-            <div className={styles.tasks__header}>
-              <h3 className={styles.tasks__itemTitle}>{task.title}</h3>
-              <span
-                className={`${styles.tasks__status} ${
-                  styles[`tasks__status_${getStatusMod(task.status)}`]
-                }`}
-              >
-                {getStatusText(task.status)}
-              </span>
-            </div>
-            <p className={styles.tasks__description}>{task.description}</p>
-            <div className={styles.tasks__meta}>
-              Срок сдачи: {new Date(task.deadline).toLocaleDateString("ru-RU")}
-            </div>
-          </Link>
-        ))}
+        {tasks.map(task => {
+          const status: "new" | "locked" = "new";
+
+          return (
+            <Link
+              to={`${task.id}`} // task.id — number → string неявно
+              key={task.id}
+              className={`${styles.tasks__item} ${
+                status !== "new" ? styles["tasks__item_disabled"] : ""
+              }`}
+            >
+              <div className={styles.tasks__header}>
+                <h3 className={styles.tasks__itemTitle}>{task.title}</h3>
+                <span
+                  className={`${styles.tasks__status} ${
+                    styles[`tasks__status_${getStatusMod(status)}`]
+                  }`}
+                >
+                  {getStatusText(status)}
+                </span>
+              </div>
+              <p className={styles.tasks__description}>
+                {task.description || "Описание отсутствует"}
+              </p>
+              {/* 🔹 Deadline: можно добавить estimatedMinutes или отдельное поле позже */}
+              {/* <div className={styles.tasks__meta}>
+                Примерное время: {task.estimatedMinutes} мин
+              </div> */}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

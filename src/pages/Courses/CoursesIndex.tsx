@@ -1,89 +1,72 @@
 import { CoursesDetails, CoursesDetailsSkeleton } from "@/components";
+import { coursesApi } from "@/api/courses"; // ← твой coursesApi
 import { useEffect, useState } from "react";
 
-const allCourses = [
-  {
-    id: "course-013",
-    slug: "nodejs-backend",
-    title: "Node.js для фронтенд-разработчиков",
-    description:
-      "Создание REST API, работа с Express, middleware, аутентификация.",
-    status: "not started" as const,
-    progress: 0,
-    tags: ["Node.js", "Backend", "API"],
-  },
-  {
-    id: "course-014",
-    slug: "docker-for-devs",
-    title: "Docker для разработчиков",
-    description:
-      "Контейнеризация приложений, docker-compose, локальная разработка как в продакшене.",
-    status: "not started" as const,
-    progress: 0,
-    tags: ["Docker", "DevOps", "Инструменты"],
-  },
-  {
-    id: "course-015",
-    slug: "cypress-e2e",
-    title: "E2E-тестирование с Cypress",
-    description:
-      "Написание сквозных тестов, моки сетевых запросов, CI-интеграция.",
-    status: "not started" as const,
-    progress: 0,
-    tags: ["Cypress", "Testing", "E2E"],
-  },
-  {
-    id: "course-016",
-    slug: "web-performance",
-    title: "Производительность веб-приложений",
-    description:
-      "Оптимизация загрузки, ленивая подгрузка, Core Web Vitals, Lighthouse.",
-    status: "not started" as const,
-    progress: 0,
-    tags: ["Performance", "Optimization", "Lighthouse"],
-  },
-  {
-    id: "course-017",
-    slug: "tailwind-css",
-    title: "Tailwind CSS: утилитарный подход к стилям",
-    description: "Быстрая разработка интерфейсов без написания CSS вручную.",
-    status: "not started" as const,
-    progress: 0,
-    tags: ["Tailwind", "CSS", "UI"],
-  },
-  {
-    id: "course-018",
-    slug: "nextjs-ssr",
-    title: "Next.js и серверный рендеринг",
-    description:
-      "SSR, SSG, API routes, динамические маршруты, оптимизация SEO.",
-    status: "not started" as const,
-    progress: 0,
-    tags: ["Next.js", "SSR", "React", "SEO"],
-  },
-];
+// Тип для UI-курса (соответствует CourseCardProps)
+interface UICourse {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+  status: "not started" | "in progress" | "completed";
+  progress: number;
+  tags: string[];
+}
 
 const CoursesIndex = () => {
+  const [courses, setCourses] = useState<UICourse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadAllCourses = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setIsLoading(false);
+    const fetchCourses = async () => {
+      try {
+        const response = await coursesApi.getAllCourses({
+          page: 0,
+          size: 10,
+          sort: ["createdAt,desc"],
+        });
+        console.log("[CoursesIndex] Fetched courses:", response);
+        // Маппинг: API → UI
+        const uiCourses: UICourse[] = response.content.map((course) => ({
+          id: course.id,
+          // slug: из URL-friendly title или course.slug, если есть в API
+          slug: course.title
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '') // убираем спецсимволы
+            .replace(/[-\s]+/g, '-'), // заменяем пробелы/дефисы на один дефис
+          title: course.title,
+          description: course.description,
+          status: "not started", // пока заглушка — можно запросить прогресс отдельно
+          progress: 0,
+          tags: course.level ? [course.level] : ["General"],
+        }));
+
+        setCourses(uiCourses);
+      } catch (err) {
+        setError("Не удалось загрузить курсы");
+        console.error("[CoursesIndex] Fetch error:", err);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    loadAllCourses();
-  }, []);
+    fetchCourses();
+  }, []); // ← пустой deps — один раз при монтировании
 
-  return (
-    <>
-      {isLoading ? (
-        <CoursesDetailsSkeleton />
-      ) : (
-        <CoursesDetails courses={allCourses} />
-      )}
-    </>
-  );
+  if (isLoading) {
+    return <CoursesDetailsSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: "2rem", color: "var(--color-error)" }}>
+        {error}
+      </div>
+    );
+  }
+
+  return <CoursesDetails courses={courses} />;
 };
 
 export default CoursesIndex;

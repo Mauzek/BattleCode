@@ -63,7 +63,6 @@ const myCourses = [
     tags: ["a11y", "UI", "Inclusive Design"],
   },
 ];
-
 const CoursesMy = () => {
   const [isLoading, setIsLoading] = useState(true);
 

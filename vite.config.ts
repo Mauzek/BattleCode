@@ -41,36 +41,31 @@ build: {
     port: 3000,
     host: true,
     proxy: {
-      // Прокси для auth-service
-      '/api/auth': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        secure: false,
-      },
-      // Прокси для email
-      '/api/email': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        secure: false,
-      },
-      // Прокси для user-service
-      '/api/users': {
-        target: 'http://localhost:8082',
-        changeOrigin: true,
-        secure: false,
-      },
-      // Прокси для course-service
-      '/api/courses': {
-        target: 'http://localhost:8083',
-        changeOrigin: true,
-        secure: false,
-      },
-      // Прокси для notification-service
-      '/api/notifications': {
-        target: 'http://localhost:8081',
-        changeOrigin: true,
-        secure: false,
-      }
+ "/api/auth": {
+      target: "http://localhost:8080",
+      changeOrigin: true,
+      secure: false,
+    },
+    "/api/email": {
+      target: "http://localhost:8080",
+      changeOrigin: true,
+      secure: false,
+    },
+    "/api/users": {
+      target: "http://localhost:8082",
+      changeOrigin: true,
+      secure: false,
+    },
+    "/api/course": {
+      target: "http://localhost:8083",
+      changeOrigin: true,
+      secure: false,
+    },
+    "/api/notifications": {
+      target: "http://localhost:8081",
+      changeOrigin: true,
+      secure: false,
+    }
     },
   },
 
