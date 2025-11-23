@@ -5,8 +5,10 @@ import React, { useState } from 'react';
 
 const CalendarIndex: React.FC = () => {
   const [events] = useState<TimeSlot[]>(mockEvents);
+  // const [useRandomEvents] = useState(true);
   const [useRandomEvents] = useState(false);
   const [randomEventsCount] = useState(23);
+  // const [randomEventsCount] = useState(43);
 
   const displayedEvents = useRandomEvents 
     ? generateRandomEvents(randomEventsCount)

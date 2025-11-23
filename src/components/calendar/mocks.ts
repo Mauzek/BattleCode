@@ -210,6 +210,8 @@ export const generateRandomEvents = (count: number): TimeSlot[] => {
     eventDate.setDate(startDate.getDate() + dayOffset);
     
     const startHour = 0 + Math.floor(Math.random() * 9); // 8:00 - 18:00
+    // const startHour = 0 + Math.floor(Math.random() * 23);
+
     const duration = 0.5 + Math.random() * 3; // 0.5 - 3.5 часа
     const endHour = startHour + duration;
     

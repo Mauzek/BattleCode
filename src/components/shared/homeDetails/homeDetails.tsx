@@ -95,7 +95,7 @@ export const HomeDetails = () => {
   return (
     <div className={styles.homeDetails}>
       <Badges
-        nearestDeadline="30.10.2025"
+        nearestDeadline="24.11.2025"
         achievementProgress={{ current: 62, total: 120 }}
         nextAchievement={{
           name: "Warrior",

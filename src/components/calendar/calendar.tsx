@@ -8,6 +8,7 @@ import type {
   WeekDate,
 } from "./types";
 import c from "./calendar.config";
+import { initialUsers } from "@/pages/Admin/AdminPage";
 
 const Calendar: React.FC<CalendarProps> = ({
   events,
@@ -365,6 +366,34 @@ const Calendar: React.FC<CalendarProps> = ({
           <p>
             <strong>Дата:</strong> {selectedEvent.date}
           </p>
+
+          
+          <p>
+    <strong>Пользователь:</strong> 
+    <a style={{marginLeft:4}}>
+    {
+
+      initialUsers[Math.floor(Math.random() * initialUsers.length)].username
+    }
+      </a>
+  </p>
+
+
+          <button 
+    onClick={closeEventPopup}
+    style={{
+      backgroundColor: '#ff4444',
+      color: 'white',
+      border: 'none',
+      width: '100%',
+      padding: '10px 20px',
+      borderRadius: '4px',
+      cursor: 'pointer',
+      marginTop: '15px'
+    }}
+  >
+    Удалить
+  </button>
         </ModalWrapper>
       )}
 

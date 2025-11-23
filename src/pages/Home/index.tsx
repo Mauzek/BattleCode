@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./home.module.scss";
 import { useAppSelector } from "@/hooks/storeHooks";
+import { useTranslation } from "@/hooks/localeHooks/useTranslation";
 
 export const HomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mdContent, setMdContent] = useState<string>("## Биби боба");
   const [isLoading, setIsLoading] = useState(true); 
   const { user } = useAppSelector(state => state.auth);
+    const { t } = useTranslation();
   useEffect(() => {
     const loadHomeDetails = async () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -19,7 +21,7 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <main style={{ height: "2000px" }}>
+    <main style={{ height: "1000px" }}>
       <div className={styles.topInfo}>
         <div className={styles.topInfo__info}>
           <h1 className={styles.topInfo__name}>
@@ -28,9 +30,9 @@ export const HomePage = () => {
           <div className={styles.topInfo__xpBar} data-xp={`${1923}xp`}>
             <div className={styles.topInfo__xpFill} style={{ width: "65%" }} />
           </div>
-          <div className={styles.topInfo__badges}>
-            <Skeleton width={100} height={30} borderRadius={16} />
-            <Skeleton width={100} height={30} borderRadius={16} />
+          <div className={styles.topInfo__badges} style={{width:230}}>
+            {/* <Skeleton width={100} height={30} borderRadius={16} />
+            <Skeleton width={100} height={30} borderRadius={16} /> */}
           </div>
         </div>
       </div>
@@ -42,10 +44,11 @@ export const HomePage = () => {
           onClick={() => setIsMenuOpen(true)}
           style={{ marginBottom: "16px" }}
         >
-          Открыть меню
+          {t("Open_menu")}
+
         </button>
-        <MdEditor value={mdContent} onChange={setMdContent} height={250} />
-        <MdViewer content={mdContent} />
+        {/* <MdEditor value={mdContent} onChange={setMdContent} height={250} />
+        <MdViewer content={mdContent} /> */}
       </section>
 
       <ModalWrapper

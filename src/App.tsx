@@ -25,6 +25,7 @@ import {
   CalendarIndex,
   CalendarEvents,
 } from "@/pages";
+import AdminPage from "./pages/Admin/AdminPage";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
               <Route path="events" element={<CalendarEvents />} />
             </Route>
 
+<Route path="/admin" element={<AdminPage/>}/>
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
