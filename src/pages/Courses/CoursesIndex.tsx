@@ -1,6 +1,7 @@
 import { CoursesDetails, CoursesDetailsSkeleton } from "@/components";
 import { coursesApi } from "@/api/courses"; // ← твой coursesApi
 import { useEffect, useState } from "react";
+import { allCourses } from "./Course/CourseIndex";
 
 export const myCourses = [
   {
@@ -67,7 +68,7 @@ export const myCourses = [
 
 // Тип для UI-курса (соответствует CourseCardProps)
 interface UICourse {
-  id: number;
+  id: string;
   slug: string;
   title: string;
   description: string;
@@ -96,9 +97,10 @@ const CoursesIndex = () => {
           id: course.id,
           // slug: из URL-friendly title или course.slug, если есть в API
           slug: course.title
-            .toLowerCase()
-            .replace(/[^\w\s-]/g, "") // убираем спецсимволы
-            .replace(/[-\s]+/g, "-"), // заменяем пробелы/дефисы на один дефис
+            // .toLowerCase()
+            // .replace(/[^\w\s-]/g, "") // убираем спецсимволы
+            // .replace(/[-\s]+/g, "-")
+            , // заменяем пробелы/дефисы на один дефис
           title: course.title,
           description: course.description,
           status: "not started", // пока заглушка — можно запросить прогресс отдельно
@@ -107,9 +109,9 @@ const CoursesIndex = () => {
         }));
 
         if (uiCourses.length === 0) {
-          uiCourses = myCourses.map((x) => ({
+          uiCourses = allCourses.map((x) => ({
             ...x,
-            id: Number(x.id),
+            id: x.id,
           }));
         }
         setCourses(uiCourses);
